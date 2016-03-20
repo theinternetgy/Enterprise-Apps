@@ -1,0 +1,78 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm">
+  <div class="col w-md bg-light dk b-r bg-auto">
+    <div class="wrapper b-b bg">
+        <div class="">
+            <input type="text" ng-model="filterQry1" class="form-control input-sm" placeholder="filter...">
+        </div>
+    </div>
+    <div class="wrapper hidden-sm hidden-xs" id="email-menu">
+        <div class="wrapper">Modules</div>
+      <ul class="nav nav-pills nav-stacked nav-sm">
+        <li ng-repeat="i in Masters.Modules | filter:filterQry1 | orderBy: 'text'"><a ng-bind="i.text" ng-click="mod(i)"></a></li>
+      </ul>
+      <div class="wrapper">Pages</div>
+      <ul class="nav nav-pills nav-stacked nav-sm">
+        <li ng-repeat="i in Masters.Pages | filter:filterQry1 | orderBy: 'text'">
+          <a ng-bind="i.text" ng-click="page(i)"></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col">
+    
+    <div>
+      <!-- header -->
+      <div class="wrapper bg-light lter b-b">
+        <div class="btn-group pull-right">
+           
+        </div>
+        <div class="btn-toolbar">
+          <div class="btn-group dropdown">
+            <button class="btn btn-default btn-sm btn-bg dropdown-toggle" data-toggle="dropdown">
+              <span class="dropdown-label">Status</span>                    
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu text-left text-sm">
+              <li ng-repeat="i in Masters.Status"><a ng-bind="i.text" ng-click="status(i)"></a></li>
+            </ul>
+          </div>
+        <div class="btn-group dropdown">
+            <button class="btn btn-default btn-sm btn-bg dropdown-toggle" data-toggle="dropdown">
+                <span class="dropdown-label">Type</span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu text-left text-sm">
+                <li ng-repeat="i in Masters.Types"><a ng-bind="i.text" ng-click="type(i)"></a></li>
+            </ul>
+        </div>
+          <div class="btn-group">
+            <button class="btn btn-sm btn-bg btn-default" data-toggle="tooltip" data-placement="bottom" data-title="Refresh" data-original-title="" title=""><i class="fa fa-refresh"></i></button>
+          </div>
+        </div>
+      </div>
+      <!-- / header -->
+
+      <!-- list -->
+      <ul class="list-group list-group-lg no-radius m-b-none m-t-n-xxs">
+        <li class="list-group-item clearfix b-l-3x b-l-info">
+          <a class="avatar thumb pull-left m-r" href="#/app/page/profile">
+            
+          </a>
+          <div class="pull-right text-sm text-muted">
+            <span class="hidden-xs ">5 months ago</span>
+            <i class="fa fa-paperclip m-l-sm"></i>
+          </div>
+          <div class="clear">
+            <div><a class="text-md " href="#/app/mail/10">Angular is Awesome</a><span class="label bg-info m-l-sm ">planned</span></div>
+            <div class="text-ellipsis m-t-xs ">
+                <label class="label label-default">Incident</label>
+                <label class="label label-default">Log Ticket Page</label>
+            </div>
+          </div>      
+        </li>
+      </ul>
+      <!-- / list -->
+    </div>
+
+  </div>
+</div>
