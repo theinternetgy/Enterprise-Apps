@@ -46,7 +46,10 @@
             </ul>
         </div>
           <div class="btn-group">
-            <button class="btn btn-sm btn-bg btn-default" data-toggle="tooltip" data-placement="bottom" data-title="Refresh" data-original-title="" title=""><i class="fa fa-refresh"></i></button>
+            <button class="btn btn-sm btn-bg btn-default" data-toggle="tooltip" data-placement="bottom" data-title="Refresh" data-original-title="" title="">
+              <i class="fa fa-refresh" ng-hide="loading"></i>
+              <i class="fa fa-refresh fa-spin" ng-show="loading"></i>
+            </button>
           </div>
         </div>
       </div>
@@ -54,24 +57,25 @@
 
       <!-- list -->
       <ul class="list-group list-group-lg no-radius m-b-none m-t-n-xxs">
-        <li class="list-group-item clearfix b-l-3x b-l-info">
+        <li class="list-group-item clearfix b-l-3x b-l-info" ng-repeat="i in features">
           <a class="avatar thumb pull-left m-r" href="#/app/page/profile">
-            
           </a>
           <div class="pull-right text-sm text-muted">
-            <span class="hidden-xs ">5 months ago</span>
+            <span class="hidden-xs " ng-bind="i.Updated"></span>
             <i class="fa fa-paperclip m-l-sm"></i>
           </div>
           <div class="clear">
-            <div><a class="text-md " href="#/app/mail/10">Angular is Awesome</a><span class="label bg-info m-l-sm ">planned</span></div>
+            <div><a class="text-md " ng-bind="i.Title"></a><span class="label bg-info m-l-sm " ng-bind="i.StatusName"></span></div>
             <div class="text-ellipsis m-t-xs ">
-                <label class="label label-default">Incident</label>
-                <label class="label label-default">Log Ticket Page</label>
+                <label class="label label-default" ng-bind="i.ModuleName"></label>
+                <label class="label label-default" ng-bind="i.PageName"></label>
             </div>
           </div>      
         </li>
       </ul>
-      <!-- / list -->
+        <div class="col-md-12" ng-hide="features && features.length>0">
+            <center><p>No features.</p></center>
+        </div>
     </div>
 
   </div>

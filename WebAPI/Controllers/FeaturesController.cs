@@ -15,9 +15,10 @@ namespace webapi.Controllers
         AppDbContext db = new AppDbContext();
 
         // GET: api/Features
-        public IEnumerable<string> Get()
+        public IEnumerable<Feature> Get()
         {
-            return new string[] { "value1", "value2" };
+            var mdata = new MasterData();
+            return mdata.GetTopFeatures();
         }
 
         public string Get(string filter)

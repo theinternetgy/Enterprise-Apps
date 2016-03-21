@@ -32,6 +32,13 @@ namespace webapi.Models
 
     }
 
+    public class FeatureListItem:Feature
+    {
+        public string StatusName { get; set; }
+        public string PageName { get; set; }
+        public string ModuleName { get; set; }
+    }
+
     public class BaseCrudClass:BaseEntity
     {
         public string Name { get; set; }
