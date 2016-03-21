@@ -12,6 +12,7 @@ namespace webapi.Migrations
             AutomaticMigrationsEnabled = true;
         }
 
+         
         protected override void Seed(webapi.Models.AppDbContext context)
         {
 
@@ -58,3 +59,20 @@ SET IDENTITY_INSERT [dbo].[Masters] OFF
         }
     }
 }
+
+
+
+
+//delete from[dbo].[Tables]
+//delete from[dbo].[Files]
+//delete from[dbo].[Masters]
+//delete from[dbo].[Features]
+
+
+
+
+
+//drop table[dbo].[Tables]
+//drop table[dbo].[Files]
+//drop table[dbo].[Masters]
+//drop table[dbo].[Features]

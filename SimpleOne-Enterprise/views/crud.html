@@ -1,12 +1,13 @@
 <div class="col">
     <div ng-show="loadingView"><i class="fa fa-spinner fa-spin"></i>&nbsp;Loading...</div>
     <div ng-show="somethingwrong" class="text-danger-dk"><i class="fa fa-exclamation-circle fa-spin"></i>&nbsp;something went wrong...</div>
-    <a ng-click="props.createnew.file=true" class="pull-right" ng-hide="props.createnew.file || loadingView || somethingwrong" href>Add</a>  
+    <a ng-click="props.createnew.file=true" class="btn btn-default pull-right" ng-hide="props.createnew.file || loadingView || somethingwrong" href>Add</a>  
+    <div ng-show="message" ng-class="message.css" ng-bind="message.content"></div>
 </div>
 <div class="row">
     <ul ng-hide="props.createnew.file || loadingView || somethingwrong" class="list-group bg-white">
         <li class="list-group-item" ng-repeat="i in list">{{i.Name}}</li>
-        <li ng-hide="list && list.length>0"><center>No files.</center></li>
+        <li class="list-group-item" ng-hide="list && list.length>0"><center>No files.</center></li>
     </ul>
 </div>              
 <div ng-show="props.createnew.file">
@@ -19,5 +20,5 @@
         <textarea class="form-control" ng-model="item.Info"></textarea>
     </div>
     <button type="submit" class="btn btn-sm btn-primary" ng-click="save(item)">Add</button>
-    <button type="submit" class="btn btn-sm btn-default pull-right" ng-click="props.createnew.file=false">Cancel</button>
+    <button type="submit" class="btn btn-sm btn-default pull-right" ng-click="props.createnew.file=false;message=undefined;">Cancel</button>
 </div>

@@ -10,22 +10,26 @@ namespace webapi.Controllers
 {
     public class FilesController : ApiController
     {
+        AppDbContext db = new AppDbContext();
         // GET api/<controller>
         public IEnumerable<BaseCrudClass> Get()
         {
-            List<BaseCrudClass> list = new List<BaseCrudClass>() {
-                new BaseCrudClass { Id=1,Name="file 1"},
-                new BaseCrudClass{ Id=2, Name="file 2"}, 
-                new BaseCrudClass{ Id=3, Name="file 3"}
-            };
+            //List<BaseCrudClass> list = new List<BaseCrudClass>() {
+            //    new BaseCrudClass { Id=1,Name="file 1"},
+            //    new BaseCrudClass{ Id=2, Name="file 2"}, 
+            //    new BaseCrudClass{ Id=3, Name="file 3"}
+            //};
 
-            return list;// new string[] { "file1", "file2" };
+            //return list;// new string[] { "file1", "file2" };
+            return null;
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        public IEnumerable<File> Get(int id)
         {
-            return "value";
+            var list = db.Files.Where(o=>o.FeatureId==id);//.ToList();
+
+            return null; ;
         }
 
         // POST api/<controller>

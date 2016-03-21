@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -24,7 +25,7 @@ namespace webapi.Models
         public string Updated { get; set; }
 
         public List<File> Files { get; set; }
-        //public List<Table> Tables { get; set; }
+        public List<Table> Tables { get; set; }
     }
 
     public class FilterProperties: Feature
@@ -43,6 +44,8 @@ namespace webapi.Models
     {
         public string Name { get; set; }
         public string Info { get; set; }
+
+        public int FeatureId { get; set; }
     }
 
     public class File : BaseCrudClass

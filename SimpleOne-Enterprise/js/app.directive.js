@@ -10,7 +10,14 @@
             $scope.loadingView = $rootScope.loadingView;
             $scope.allSet = crudService.ok();
             $scope.save = function (item) {
-                $scope.list.push(item);
+                if ($scope.list) {
+                    $scope.list.push(item);
+                }
+                else {
+                    $scope.list = [];
+                    $scope.list.push(item);
+                }
+                $scope.message = { content: 'Saved.', css: 'alert alert-success' };
                 $scope.item = {};
             }
             var setMessage = function(message){

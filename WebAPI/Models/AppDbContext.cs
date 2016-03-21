@@ -17,9 +17,17 @@ namespace webapi.Models
         {
         }
         
-        public static AppDbContext Create()
+        //public static AppDbContext Create()
+        //{
+        //    return new AppDbContext();
+        //}
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            return new AppDbContext();
+            //modelBuilder.Entity<Feature>()
+            //        .HasMany<File>(s => s.Files)
+            //        .WithRequired()
+            //        .HasForeignKey(s => s.FeatureId);
         }
 
         public DbSet<Feature> Featues { get; set; }
