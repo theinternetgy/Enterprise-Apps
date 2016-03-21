@@ -8,7 +8,7 @@ namespace webapi.Models
 {
     public class Feature: BaseEntity
     {
-
+        public Guid GUID { get; set; }
         public int Project { get; set; }
         public int Module { get; set; }
         public int Page { get; set; }
@@ -26,6 +26,8 @@ namespace webapi.Models
 
         public List<File> Files { get; set; }
         public List<Table> Tables { get; set; }
+
+        public List<Stackholder> Stackholders { get; set; }
     }
 
     public class FilterProperties: Feature
@@ -57,5 +59,10 @@ namespace webapi.Models
     {
 
     }
-     
+
+    public class Stackholder : BaseCrudClass
+    {
+
+    }
+
 }

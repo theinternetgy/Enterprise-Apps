@@ -18,6 +18,7 @@ var app = angular.module('myapp', ['LocalStorageModule', 'ngSanitize', 'ngRoute'
     $routeProvider
       .when('/', { templateUrl: 'views/dashboard.html', controller: 'dashboardCtrl' })
       .when('/addfeature', { templateUrl: 'views/newfeature.html', controller: 'newFeatureCtrl' })
+      .when('/edit/:ind', { templateUrl: 'views/newfeature.html', controller: 'newFeatureCtrl' })
       .when('/features', { templateUrl: 'views/featureslist.html', controller: 'featureListCtrl' })
       .when('/addtask', { templateUrl: 'addexpense.html', controller: 'MainCtrl' })
       .when('/adduser', { templateUrl: 'addexpense.html', controller: 'MainCtrl' })
@@ -25,4 +26,8 @@ var app = angular.module('myapp', ['LocalStorageModule', 'ngSanitize', 'ngRoute'
       .when('/addmodule', { templateUrl: 'addexpense.html', controller: 'MainCtrl' })
       .when('/addnew/:ind', { controller: 'MainCtrl', templateUrl: 'addexpense.html' })
     .when('/settings', { templateUrl: 'views/settings.html', controller: 'settingsCtrl' })
+}).filter('moment', function () {
+    return function (dateString, format) {
+        if(dateString && dateString!='') return moment(dateString).format(format);
+    };
 });

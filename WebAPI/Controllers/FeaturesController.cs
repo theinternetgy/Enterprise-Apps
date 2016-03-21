@@ -12,13 +12,11 @@ namespace webapi.Controllers
     public class FeaturesController : ApiController
     {
 
-        AppDbContext db = new AppDbContext();
-
         // GET: api/Features
         public IEnumerable<Feature> Get()
         {
-            var mdata = new MasterData();
-            return mdata.GetTopFeatures();
+            var features = new FeaturesService();
+            return features.GetTopFeatures();
         }
 
         public string Get(string filter)
@@ -31,16 +29,17 @@ namespace webapi.Controllers
         }
 
         // GET: api/Features/5
-        public string Get(int id)
+        public Feature Get(int id)
         {
-            return "value";
+            var featureService = new FeaturesService();
+            return featureService.GetFirst(id);
         }
 
         // POST: api/Features
         public void Post([FromBody]Feature value)
         {
-            db.Featues.Add(value);
-            db.SaveChangesAsync();
+            var featureService = new FeaturesService();
+            featureService.Save(value);
         }
 
         // PUT: api/Features/5

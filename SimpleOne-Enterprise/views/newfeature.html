@@ -6,73 +6,49 @@
                 <div class="form-group">
                     <label>Project</label>
                     <div>
-                        <select ui-jq="chosen" class="w" ng-model="Feature.Project">
-                            <option value="1">Summit</option>
-                        </select>
+                        <select ui-jq="chosen" class="w" ng-model="Feature.Project" ng-options="value.Id as value.text for value in Masters.Projects"></select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Module</label>
                     <div>
-                        <select ui-jq="chosen" class="w" ng-model="Feature.Module">
-                            <option value="1">Incident</option>
-                            <option value="2">Service Request</option>
-                            <option value="3">Problem</option>
-                            <option value="4">Work Order</option>
-                        </select>
+                        <select ui-jq="chosen" class="w" ng-model="Feature.Module" ng-options="value.Id as value.text for value in Masters.Modules"></select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Page</label>
                     <div>
-                        <select ui-jq="chosen" class="w" ng-model="Feature.Page">
-                            <option value="1">Incident</option>
-                            <option value="2">Service Request</option>
-                            <option value="3">Problem</option>
-                        </select>
+                        <select ui-jq="chosen" class="w" ng-model="Feature.Page" ng-options="value.Id as value.text for value in Masters.Pages"></select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Parent Feature</label>
                     <div>
-                        <select ui-jq="chosen" class="w" ng-model="Feature.Parent">
-                            <option value="1">Parent Feature1</option>
-                            <option value="2">Parent Feature2</option>
-                            <option value="3">Parent Feature3</option>
-                        </select>
+                        <select ui-jq="chosen" class="w" ng-model="Feature.Parent" ng-options="value.Id as value.text for value in Masters.ParentFeatures"></select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Type</label>
                     <div>
-                        <select ui-jq="chosen" class="w" ng-model="Feature.Type">
-                            <option value="1">Development</option>
-                            <option value="2">Bug Fix</option>
-                            <option value="3">Customization</option>
-                        </select>
+                        <select ui-jq="chosen" class="w" ng-model="Feature.Type" ng-options="value.Id as value.text for value in Masters.Types"></select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Status</label>
                     <div>
-                        <select ui-jq="chosen" class="w" ng-model="Feature.Status">
-                            <option value="1">Planned</option>
-                            <option value="2">Completed</option>
-                            <option value="3">Pending</option>
-                            <option value="4">In-Progress</option>
-                        </select>
+                        <select ui-jq="chosen" class="w" ng-model="Feature.Status" ng-options="value.Id as value.text for value in Masters.Status"></select>
                     </div>
                 </div>
-              <div class="form-group">
+              <div class="form-group" ng-show="Feature.Created">
                 <label>Created</label>
                 <div>
-                  <label ng-bind="Feature.Created"></label>
+                  <label ng-bind="Feature.Created | moment:formats.datetimeformat"></label>
                 </div>
               </div>
-              <div class="form-group">
+              <div class="form-group" ng-show="Feature.Updated">
                 <label>Last Updated</label>
                 <div>
-                    <label ng-bind="Feature.Updated"></label>
+                    <label ng-bind="Feature.Updated | moment:formats.datetimeformat"></label>
                 </div>
               </div>
             </form>
@@ -82,9 +58,13 @@
 
 <div class="col">
   <div class="vbox">
-    <div class="bg-light lter b-b wrapper-md">
-    <h1 class="m-n font-thin h3">New Feature</h1>
-    </div>
+      <div class="wrapper bg-light lter b-b">
+          <div class="pull-right">
+              <div ng-show="loading"><i class="fa fa-spinner text-danger fa-2x fa-spin"></i></div>
+          </div>
+          <h1 class="m-n font-thin h3" ng-bind="title"></h1>
+      </div>
+    
     <div class="row-row">
       <div class="cell">
         <div class="cell-inner">
@@ -111,6 +91,7 @@
                       </div>
                       <span ng-show="processing"><i class="fa fa-spinner fa-spin"></i>&nbsp;Saving...</span>
                   </button>
+                    <button class="pull-right btn btn-default" ng-click="cancel()">Cancel</button>
                 </form>
               </div>
             </div>
@@ -120,6 +101,19 @@
 
             <div class="panel-group" id="accordion">
               
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title" data-toggle="collapse" data-target="#divstackholder">
+                            Stackholders
+                        </h4>
+                    </div>
+                    <div id="divstackholder" class="panel-collapse">
+                        <div class="panel-body">
+                            <crud collection-name="stackholders" list="Feature.Stackholders"></crud>
+                        </div>
+                    </div>
+                </div>
+
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4 class="panel-title" data-toggle="collapse" data-target="#divfiles">
@@ -141,7 +135,7 @@
                 </div>
                 <div id="divtables" class="panel-collapse collapse">
                   <div class="panel-body">
-                    <!--<crud collection-name="tables"></crud>-->
+                    <crud collection-name="tables" list="Feature.Tables"></crud>
                   </div>
                 </div>
               </div>

@@ -14,6 +14,13 @@
         return items;
     }
     return fac;
+}).factory('utilsFac', function () {
+    var fac = {};
+    fac.formats = function () {
+        var items = { datetimeformat: 'MMMM Do YYYY, h:mm:ss a', dateformat: 'MMMM Do YYYY' };
+        return items;
+    }
+    return fac;
 })
 .factory('crudService', function ($http, $q, localstoragefac, toaster, $window) {
 
@@ -47,11 +54,11 @@
         }
     };
 
-    var getItems = function (collectionName,filter) {
+    var getItems = function (collectionName,filter,param) {
         var deferred = $q.defer();
         var apiurl = URL._items(collectionName);
-        if (filter && filter != '') apiurl += '/' + filter;
-        console.log('apiurl:', apiurl);
+        if (filter && filter != '') apiurl += '/' + filter; else if (param && param != '') apiurl += param;
+        //console.log('apiurl:', apiurl);
         $http({ method: 'GET', url: apiurl })
             .success(function (data) {deferred.resolve(data);})
             .error(function (data) { deferred.reject(data);});
