@@ -257,6 +257,7 @@
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\AppDbContext.cs" />
     <Compile Include="Models\MultipleResultSets.cs" />
+    <Compile Include="Models\UtilsClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />

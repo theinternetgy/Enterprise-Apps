@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using webapi.Models;
 
 namespace webapi.Models
 {
@@ -9,7 +11,7 @@ namespace webapi.Models
     {
         AppDbContext db = new AppDbContext();
 
-        public bool Save(Feature feature)
+        public Feature Save(Feature feature)
         {
             bool result = true;
 
@@ -27,17 +29,51 @@ namespace webapi.Models
             {
                 feature.Updated = DateTime.Now.ToString(datetimeformat);
 
+                var existingFeature = db.Featues.AsNoTracking().Where(o=>o.Id == feature.Id)
+                                            .Include(s => s.Stackholders)
+                                            .Include(s => s.Files)
+                                            .FirstOrDefault<Feature>();
+
+                var addedStackholders = feature.Stackholders.Except(existingFeature.Stackholders, tchr => tchr.Id);
+                addedStackholders.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Added);
+
+                var modifiedStackholders = feature.Stackholders.Except(addedStackholders, tchr => tchr.Id);
+                modifiedStackholders.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Modified);
+
+
+                //Find newly added Stackholders by updatedStackholders (teacher came from client sided) Minus existingStackholders = newly added Stackholders
+                //var addedStackholders = feature.Stackholders.Except<Stackholder>(existingFeature.Stackholders, new GenericEqualityComparer<Stackholder>());
+                //addedStackholders.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Added);
+
+                ////3- Find deleted Stackholders by existing Stackholders - updatedStackholders = deleted Stackholders
+                //var deletedStackholders = existingFeature.Stackholders.Except(feature.Stackholders, new GenericEqualityComparer<Stackholder>());
+                //deletedStackholders.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Deleted);
+
+                //4- Find modified Stackholders by updatedStackholders - addedStackholders = modified Stackholders
+                //var modifiedTeachers = feature.Stackholders.Except(addedStackholders, new GenericEqualityComparer<Stackholder>());
+                //modifiedTeachers.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Modified);
+
                 db.Entry<Feature>(feature).State = System.Data.Entity.EntityState.Modified;
             }
             
             db.SaveChanges();
 
-            return result;
+            if(feature.Id>0)
+            {
+                return this.GetFirst(feature.Id);
+            }
+
+            return feature;
         }
 
         public Feature GetFirst(int id)
         {
-            var feature = db.Featues.Where(o => o.Id == id).FirstOrDefault();
+            var feature = db.Featues
+                .Where(o => o.Id == id)
+                .Include(o=>o.Stackholders)
+                .Include(o=>o.Files)
+                .Include(o=>o.Tables)
+                .FirstOrDefault();
             return feature;
         }
 

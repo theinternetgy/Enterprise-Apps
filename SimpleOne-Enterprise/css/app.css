@@ -5176,3 +5176,6 @@ a.text-#000000:hover {
   }
 }
 .navbar-brand img{max-height:40px !important;}
+.panel-group .panel{border-radius:0px !important;}
+.panel-default{border-color:#edf1f2 !important;}
+.list-group-item:first-child{border-top-left-radius:0px !important;border-top-right-radius:0px !important;}

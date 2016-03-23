@@ -68,7 +68,8 @@
     <div class="row-row">
       <div class="cell">
         <div class="cell-inner">
-          <div class="wrapper-md col-md-8">
+          <div class="wrapper-md col-md-12">
+
             <div class="panel panel-default">
               <div class="panel-body">
                 <form role="form">
@@ -78,7 +79,7 @@
                   </div>
                   <div class="form-group">
                     <label>Description</label>
-                    <textarea class="form-control" rows="10" ng-model="Feature.Description"></textarea>
+                    <textarea class="form-control" rows="5" ng-model="Feature.Description"></textarea>
                   </div>
                     <div class="form-group">
                         <label>Keywords</label>
@@ -95,108 +96,160 @@
                 </form>
               </div>
             </div>
+
           </div>
 
-          <div class="wrapper-md col-md-4">
+          <div class="wrapper-md col-md-12">
 
-            <div class="panel-group" id="accordion">
-              
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title" data-toggle="collapse" data-target="#divstackholder">
-                            Stackholders
-                        </h4>
-                    </div>
-                    <div id="divstackholder" class="panel-collapse">
-                        <div class="panel-body">
-                            <crud collection-name="stackholders" list="Feature.Stackholders"></crud>
-                        </div>
-                    </div>
-                </div>
-
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title" data-toggle="collapse" data-target="#divfiles">
-                    Files
-                  </h4>
-                </div>
-                <div id="divfiles" class="panel-collapse collapse">
-                  <div class="panel-body">
-                    <crud collection-name="files" list="Feature.Files"></crud>
-                  </div>
-                </div>
-              </div>
-
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title" data-toggle="collapse" data-target="#divtables">
-                    Tables
-                  </h4>
-                </div>
-                <div id="divtables" class="panel-collapse collapse">
-                  <div class="panel-body">
-                    <crud collection-name="tables" list="Feature.Tables"></crud>
-                  </div>
-                </div>
-              </div>
-
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title" data-toggle="collapse" data-target="#divsps">
-                    Stored Procedures
-                  </h4>
-                </div>
-                <div id="divsps" class="panel-collapse collapse">
-                  <div class="panel-body">
-                    <!--<crud collection-name="storedprocedures"></crud>-->
-                  </div>
-                </div>
-              </div>
-
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title" data-toggle="collapse" data-target="#divfunctions">
-                    Functions
-                  </h4>
-                </div>
-                <div id="divfunctions" class="panel-collapse collapse">
-                  <div class="panel-body">
-                    <!--<crud collection-name="functions"></crud>-->
-                  </div>
-                </div>
-              </div>
-
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title" data-toggle="collapse" data-target="#divunittest">
-                    Unit Test Scenarios
-                  </h4>
-                </div>
-                <div id="divunittest" class="panel-collapse collapse">
-                  <div class="panel-body">
-                    <!--<crud collection-name="unittestscenarios"></crud>-->
-                  </div>
-                </div>
-              </div>
-
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title" data-toggle="collapse" data-target="#divref">
-                    Reference
-                  </h4>
-                </div>
-                <div id="divref" class="panel-collapse collapse">
-                  <div class="panel-body">
-                    <!--<crud collection-name="references"></crud>-->
-                  </div>
-                </div>
-              </div>
-              
-            </div>
+            
              
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+<div class="col w-xl bg-white-only b-l bg-auto no-border-xs">
+    <div class="panel-group" id="accordion">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" data-toggle="collapse" data-target="#divstackholder">
+                    Stackholders
+                </h4>
+            </div>
+            <div id="divstackholder" class="panel-collapse">
+                <div class="panel-body">
+                    <crud collection-name="stackholders" list="Feature.Stackholders" primaryid="Feature.Id" labels="{name:'Stackholder Name',info:'Work Assigned'}"></crud>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" data-toggle="collapse" data-target="#divfiles">
+                    Files
+                </h4>
+            </div>
+            <div id="divfiles" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <crud collection-name="files" list="Feature.Files" primaryid="Feature.Id"></crud>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" data-toggle="collapse" data-target="#divtables">
+                    Tables
+                </h4>
+            </div>
+            <div id="divtables" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <crud collection-name="tables" list="Feature.Tables" primaryid="Feature.Id"></crud>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" data-toggle="collapse" data-target="#divsps">
+                    Stored Procedures
+                </h4>
+            </div>
+            <div id="divsps" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <!--<crud collection-name="storedprocedures"></crud>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" data-toggle="collapse" data-target="#divfunctions">
+                    Functions
+                </h4>
+            </div>
+            <div id="divfunctions" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <!--<crud collection-name="functions"></crud>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" data-toggle="collapse" data-target="#divunittest">
+                    Unit Test Scenarios
+                </h4>
+            </div>
+            <div id="divunittest" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <!--<crud collection-name="unittestscenarios"></crud>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" data-toggle="collapse" data-target="#divrepoinfo">
+                    Repository Info
+                </h4>
+            </div>
+            <div id="divrepoinfo" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p class="text-muted">Provide repositoy information, branch, changeset, customer if any</p>
+                    <div class="form-group">
+                        <label>Branch</label>
+                        <input type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Changeset Number</label>
+                        <input type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Customer</label>
+                        <input type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success">Save</button>
+                    </div>
+                    <!--<crud collection-name="references"></crud>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" data-toggle="collapse" data-target="#divconcern">
+                    Queries/Doubts
+                </h4>
+            </div>
+            <div id="divconcern" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p class="text-muted">Discuss the concerned items (if any). if there is any db related queries/doubts, performance related points/issues.clarify all the issues and resolve it.</p>
+                    <div class="form-group">
+                        <label>Question</label>
+                        <input type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Detail</label>
+                        <input type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Answer</label>
+                        <input type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success">Save</button>
+                    </div>
+                    <!--<crud collection-name="references"></crud>-->
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+     
 </div>

@@ -8,10 +8,12 @@
         $scope.Feature = {Files:[]};
     }
     $scope.save = function (item) {
-        //console.log(item);
+        console.log('saving: ',item);
         $scope.processing = true;
         crudService.saveItem('Features', item).then(function (d) {
             toaster.success({ title: "Success", body: "Feature Saved.", bodyOutputType: 'trustedHtml' });
+            console.log('response: ', d);
+            $scope.Feature = d;
             $scope.processing = false;
         }, function (d) {
             toaster.warning({ title: "Error", body: "something went wrong. " + d, bodyOutputType: 'trustedHtml' });

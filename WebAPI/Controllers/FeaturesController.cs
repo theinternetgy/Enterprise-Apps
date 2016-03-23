@@ -36,10 +36,10 @@ namespace webapi.Controllers
         }
 
         // POST: api/Features
-        public void Post([FromBody]Feature value)
+        public Feature Post([FromBody]Feature value)
         {
             var featureService = new FeaturesService();
-            featureService.Save(value);
+            return featureService.Save(value);
         }
 
         // PUT: api/Features/5

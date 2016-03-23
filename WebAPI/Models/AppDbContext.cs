@@ -33,6 +33,7 @@ namespace webapi.Models
         public DbSet<Feature> Featues { get; set; }
         public DbSet<File> Files { get; set; }
         public DbSet<Table> Tables { get; set; }
+        public DbSet<Stackholder> Stackholders { get; set; }
     }
 
     public static class DbSetExtensions
