@@ -60,18 +60,23 @@
     
     $scope.filterlist = function (flag) {
         var filter = { Module: $scope.Module, Page: $scope.Page, Status: $scope.Status, Type: $scope.Type }
-        var f = ''; if(flag) f = JSON.stringify(filter);
+        var f = ''; if(flag) f = '?filter='+JSON.stringify(filter);
         //console.log('filter:', f);
         crudService.getItems('features', f).then(function (d) {
             $scope.features = d;
             $scope.loading = false;
         });
     }
-    $scope.mod = function (i) { console.log(i); $scope.Module = i.Id; $scope.filterlist(true); }
-    $scope.page = function (i) { $scope.Page = i.Id; $scope.filterlist(true); }
+    $scope.mod = function (i) { $scope.activeModule = i.text; $scope.Module = i.Id; $scope.filterlist(true); }
+    $scope.page = function (i) { $scope.activePage = i.text; $scope.Page = i.Id; $scope.filterlist(true); }
     $scope.status = function (i) { $scope.Status = i.Id; $scope.filterlist(true); }
     $scope.type = function (i) { $scope.Type = i.Id; $scope.filterlist(true); }
-   
+    $scope.getclass = function (flag,selected) {
+        var css='';
+        if (flag == 'm' && selected == $scope.activeModule) css = 'active';
+        if (flag == 'p' && selected == $scope.activePage) css = 'active';
+        return css;
+    }
     $scope.loadmaster = function (filter) {
         var f = ''; if (filter) f = JSON.stringify(filter);
         crudService.getItems('masters',f).then(function (d) {
@@ -102,7 +107,7 @@
 .controller('TypeaheadDemoCtrl', function ($scope) { })
 .controller('FlotChartDemoCtrl', function ($scope) { })
 .controller('MainCtrl', function ($scope) { })
-.controller('settingsCtrl', function ($scope, $q,toaster, $window,localstoragefac) {
+.controller('settingsCtrl', function ($scope, $q, toaster, $window, localstoragefac) {
     var mode = 'local';    
     $scope.Settings = {};
     $scope.save = function () {
@@ -117,10 +122,23 @@
     $scope.edit=function(index){
         $scope.editmode=true;
     }
+    $scope.getclass = function (flag, selected) {
+        var css = '';
+        if (flag == 'p' && selected == $scope.title) css = 'active';
+        return css;
+    }
+    $scope.nav = function (selected) {
+        //console.log(selected.Name);
+        $scope.title = selected.Name;   
+        $scope.selectedConfig = selected.Name.toLowerCase();
+        
+    }
     $scope.init = function () {
-        localstoragefac.init('settings');
-        console.log(localstoragefac.getitem());
-        $scope.Settings = localstoragefac.getitem();
+        $scope.menus = [{ Name: 'Application', Url: 'settings.application', Css: 'active' }, { Name: 'Project', Url: 'settings.project', Css: '' }, { Name: 'Module', Url: 'settings.module' }, { Name: 'Page', Url: 'settings.page' }];
+        $scope.title = 'Project';
+        $scope.selectedConfig = $scope.title.toLowerCase();
+        localstoragefac.init('settings');        
+        $scope.Settings = localstoragefac.getitem();        
     }
     $scope.init();
 })

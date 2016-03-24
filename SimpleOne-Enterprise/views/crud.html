@@ -1,7 +1,7 @@
 <div class="col">
     <div ng-show="loadingView"><i class="fa fa-spinner fa-spin"></i>&nbsp;Loading...</div>
     <div ng-show="somethingwrong" class="text-danger-dk"><i class="fa fa-exclamation-circle fa-spin"></i>&nbsp;something went wrong...</div>
-    <a ng-click="props.createnew=true" class="btn btn-default pull-right" ng-hide="props.createnew || loadingView || somethingwrong" href><i class="fa fa-plus fa-1x"></i> Add</a>  
+    <a ng-click="props.createnew=true" class="btn btn-default pull-right" ng-disabled="props.createnew || loadingView || somethingwrong" href><i class="fa fa-plus fa-1x"></i> Add</a>  
 </div>
 <div class="row">
     <ul ng-hide="loadingView || somethingwrong" class="list-group bg-white">
@@ -9,15 +9,15 @@
         <li class="list-group-item" ng-hide="list && list.length>0"><center>No {{collectionName}}.</center></li>
     </ul>
 </div>              
-<div ng-show="props.createnew || props.editrecord">
+<div ng-show="props.createnew || props.editrecord" class="well">
     <div class="form-group">
         <label ng-bind="labels.name"></label>
-        <input type="text" class="form-control" ng-model="item.Name" />
+        <input type="text" class="form-control" ng-model="item.Name" my-enter="save(item)" />
     </div>
     <div class="form-group">
         <label ng-bind="labels.info"></label>
         <textarea class="form-control" ng-model="item.Info"></textarea>
     </div>
-    <button type="submit" class="btn btn-sm btn-primary" ng-click="save(item)">Add</button>
+    <button type="submit" class="btn btn-sm btn-primary" ng-click="save(item)" ng-bind="props.lblsavebtn"></button>
     <button type="submit" class="btn btn-sm btn-default pull-right" ng-click="cancel()">Cancel</button>
 </div>

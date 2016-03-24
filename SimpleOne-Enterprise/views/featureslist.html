@@ -8,13 +8,11 @@
     <div class="wrapper hidden-sm hidden-xs" id="email-menu">
         <div class="wrapper">Modules</div>
       <ul class="nav nav-pills nav-stacked nav-sm">
-        <li ng-repeat="i in Masters.Modules | filter:filterQry1 | orderBy: 'text'"><a ng-bind="i.text" ng-click="mod(i)"></a></li>
+        <li ng-repeat="i in Masters.Modules | filter:filterQry1 | orderBy: 'text'" ng-class="getclass('m',i.text)"><a ng-bind="i.text" ng-click="mod(i)"></a></li>
       </ul>
       <div class="wrapper">Pages</div>
       <ul class="nav nav-pills nav-stacked nav-sm">
-        <li ng-repeat="i in Masters.Pages | filter:filterQry1 | orderBy: 'text'">
-          <a ng-bind="i.text" ng-click="page(i)"></a>
-        </li>
+        <li ng-repeat="i in Masters.Pages | filter:filterQry1 | orderBy: 'text'" ng-class="getclass('p',i.text)"><a ng-bind="i.text" ng-click="page(i)"></a></li>
       </ul>
     </div>
   </div>
@@ -53,9 +51,9 @@
                   <i class="fa fa-plus fa-1x"></i>
               </button>
           </div>
-            <div class="pull-right">
+            <!--<div class="pull-right">
                 <div ng-show="loading"><i class="fa fa-spinner text-danger fa-2x fa-spin"></i></div>
-            </div>
+            </div>-->
         </div>
       </div>
       <!-- / header -->
@@ -77,9 +75,10 @@
           </div>      
         </li>
       </ul>
-        <div class="col-md-12" ng-hide="features && features.length>0">
-            <center><p>No features.</p></center>
+        <div class="col-md-12" ng-hide="(features && features.length>0) || loading">
+            <center><p>No records found.</p></center>
         </div>
+        <div ng-show="loading"><h1 class="text-muted font-thin"><i class="fa fa-spinner text-primary-dker fa-spin"></i> loading...</h1></div>
     </div>
 
   </div>

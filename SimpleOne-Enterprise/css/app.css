@@ -5194,3 +5194,5 @@ a.text-#000000:hover {
 }
 .plus h4{margin-left:25px;}
 .panel .panel-title {cursor:hand;cursor:pointer;}
+ul.nav .active{background-color:#f6f8f8 !important;}
+.crud-tbl-col-text-wrap{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width:300px;max-width: 100px;}

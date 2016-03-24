@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using webapi.Models;
 using webapi.Models.Common;
+using System.Text;
 
 namespace webapi.Models
 {
@@ -221,10 +223,64 @@ namespace webapi.Models
         {
             var result = db.Database.SqlQuery<FeatureListItem>(@" SELECT top 10 a.[Id],a.[GUID],a.[Project],a.[Module],mod.text [ModuleName],a.[Page],page.text [PageName],a.[Parent],a.[Type],a.[Status],status.text [StatusName],a.[Title],a.[Description],a.[Keywords],a.[Created],a.[Updated] 
                                     FROM [dbo].[Features] a 
-                                    Left outer join [Masters] status on status.Id=a.[Status] 
-                                    Left outer join [Masters] mod on mod.Id=a.[Module] 
-                                    Left outer join [Masters] page on page.Id=a.[Page] 
+                                    Left outer join [masteritems] status on status.Id=a.[Status] 
+                                    Left outer join [masteritems] mod on mod.Id=a.[Module] 
+                                    Left outer join [masteritems] page on page.Id=a.[Page] 
             ");
+            return result;
+        }
+
+        public IEnumerable<FeatureListItem> GetAll(FilterProperties filter)
+        {
+
+            //var result = db.Featues
+            //    .Where(o => (filter.Module > 0 && o.Module == filter.Module || filter.Module==0)  )
+            //    .Include(o=>o.Status)
+            //    .Select(a => new FeatureListItem {
+            //        Id= a.Id,Title = a.Title, Description = a.Description
+            //    })
+            //    .AsEnumerable();
+
+            var sql = new StringBuilder();
+            var where = new StringBuilder();
+            sql.Append(@" SELECT top 100 a.[Id],a.[GUID],a.[Project],a.[Module],mod.text [ModuleName],a.[Page],page.text [PageName],a.[Parent],a.[Type],a.[Status],status.text [StatusName],a.[Title],a.[Description],a.[Keywords],a.[Created],a.[Updated] 
+                                    FROM [dbo].[Features] a 
+                                    Left outer join [masteritems] status on status.Id=a.[Status] 
+                                    Left outer join [masteritems] mod on mod.Id=a.[Module] 
+                                    Left outer join [masteritems] page on page.Id=a.[Page] 
+            ");
+
+            if (filter.Module > 0)
+                where.AppendFormat(" a.Module={0} ",filter.Module);
+
+            if (filter.Page > 0)
+            {
+                if (where.Length > 0)
+                    where.Append(" and ");
+
+                where.AppendFormat(" a.Page={0} ", filter.Page);
+            }
+
+            if (filter.Status>0)
+            {
+                if (where.Length > 0)
+                    where.Append(" and ");
+
+                where.AppendFormat(" a.Status={0} ", filter.Status);
+            }
+
+            if (filter.Type > 0)
+            {
+                if (where.Length > 0)
+                    where.Append(" and ");
+
+                where.AppendFormat(" a.Type={0} ", filter.Type);
+            }
+
+            if (where.Length > 0)
+                sql.Append(" where "+where.ToString());
+
+            var result = db.Database.SqlQuery<FeatureListItem>(sql.ToString());
             return result;
         }
     }

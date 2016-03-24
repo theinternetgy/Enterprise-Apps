@@ -14,7 +14,7 @@ namespace webapi.Models
         public int Page { get; set; }
         public int Parent { get; set; }
         public int Type { get; set; }
-        public string Status { get; set; }
+        public int Status { get; set; }
 
         public string Title { get; set; }
         public string Description { get; set; }
@@ -50,7 +50,7 @@ namespace webapi.Models
     {
         public string Name { get; set; }
         public string Info { get; set; }
-
+        public bool Active { get; set; }
         public int FeatureId { get; set; }
     }
 
@@ -98,4 +98,6 @@ namespace webapi.Models
     {
         public string Date { get; set; }
     }
+
+    
 }

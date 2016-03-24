@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.Linq.Expressions;
 using System.Linq;
 using System;
+using webapi.Models.Settings;
 
 namespace webapi.Models
 {
@@ -35,6 +36,7 @@ namespace webapi.Models
         public DbSet<Table> Tables { get; set; }
         public DbSet<Stackholder> Stackholders { get; set; }
         public DbSet<Log> Logs { get; set; }
+        public DbSet<Settings.MasterItem> Masters { get; set; }
     }
 
     public static class DbSetExtensions

@@ -127,7 +127,7 @@
             </div>
             <div id="divfiles" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <crud collection-name="files" list="Feature.Files" primaryid="Feature.Id"></crud>
+                    <crud collection-name="files" list="Feature.Files" primaryid="Feature.Id" labels="{name:'File Name',info:'Info'}"></crud>
                 </div>
             </div>
         </div>
@@ -140,7 +140,7 @@
             </div>
             <div id="divtables" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <crud collection-name="tables" list="Feature.Tables" primaryid="Feature.Id"></crud>
+                    <crud collection-name="tables" list="Feature.Tables" primaryid="Feature.Id" labels="{name:'Table Name',info:'Info'}"></crud>
                 </div>
             </div>
         </div>
@@ -153,7 +153,7 @@
             </div>
             <div id="divsps" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <crud collection-name="storedprocedures" list="Feature.StoredProcedures" primaryid="Feature.Id"></crud>
+                    <crud collection-name="storedprocedures" list="Feature.StoredProcedures" primaryid="Feature.Id" labels="{name:'Stored Procedure Name',info:'Info'}"></crud>
                 </div>
             </div>
         </div>
@@ -166,7 +166,7 @@
             </div>
             <div id="divfunctions" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <crud collection-name="functions" list="Feature.Functions" primaryid="Feature.Id"></crud>
+                    <crud collection-name="functions" list="Feature.Functions" primaryid="Feature.Id" labels="{name:'Function Name',info:'Info'}"></crud>
                 </div>
             </div>
         </div>
@@ -179,7 +179,7 @@
             </div>
             <div id="divunittest" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <crud collection-name="UnitTestCases" list="Feature.UnitTestCases" primaryid="Feature.Id"></crud>
+                    <crud collection-name="UnitTestCases" list="Feature.UnitTestCases" primaryid="Feature.Id" labels="{name:'Unit Test Case Scenario',info:'Detail'}"></crud>
                 </div>
             </div>
         </div>
@@ -192,7 +192,7 @@
             </div>
             <div id="divrepoinfo" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <crud collection-name="RepositoryInfo" list="Feature.RepositoyItems" primaryid="Feature.Id"></crud>
+                    <crud collection-name="RepositoryInfo" list="Feature.RepositoyItems" primaryid="Feature.Id" labels="{name:'Changeset',info:'Branch/Version/Customer/Build#'}"></crud>
                 </div>
             </div>
         </div>
@@ -205,7 +205,8 @@
             </div>
             <div id="divconcern" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <crud collection-name="OtherInfoItems" list="Feature.OtherInfoItems" primaryid="Feature.Id"></crud>
+                    <p class="text-muted">Discuss the concerned items (if any). if there is any db related queries/doubts, performance related points/issues.clarify all the issues and resolve it.</p>
+                    <crud collection-name="OtherInfoItems" list="Feature.OtherInfoItems" primaryid="Feature.Id" labels="{name:'Question',info:'Detail'}"></crud>
                 </div>
             </div>
         </div>

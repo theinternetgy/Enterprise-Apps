@@ -19,13 +19,17 @@ namespace webapi.Controllers
             return features.GetTopFeatures();
         }
 
-        public string Get(string filter)
+        public IEnumerable<Feature> Get(string filter)
         {
+            IEnumerable<Feature> list=null;
+            var features = new FeaturesService();
             if (string.IsNullOrEmpty(filter) == false)
             {
                 var param = JsonConvert.DeserializeObject<FilterProperties>(filter);
+                list= features.GetAll(param);
             }
-                return "value";
+
+            return list;
         }
 
         // GET: api/Features/5

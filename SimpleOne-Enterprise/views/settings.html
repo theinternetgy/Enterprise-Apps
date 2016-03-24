@@ -1,45 +1,57 @@
+<div class="col w lter b-r">
+    <div class="vbox">
+        <div class="wrapper b-b">
+            <div class="font-thin h4">Settings</div>
+        </div>
+        <div class="wrapper" id="email-menu">
+            <ul class="nav nav-pills nav-stacked nav-sm">
+                <li ng-repeat="i in menus" ng-class="getclass('p',i.Name)"><a ng-bind="i.Name" ng-click="nav(i)"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
 <div class="col">
     <div class="vbox">
-        <div class="bg-light lter b-b wrapper-md">
-            <h1 class="m-n font-thin h3">Settings</h1>
+        <div class="wrapper bg-light lter b-b">
+            <h1 class="m-n font-thin h4" ng-bind="title"></h1>
         </div>
-        <div class="row-row">
-            <div class="cell">
-                <div class="cell-inner">
-                    <div class="wrapper-md col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div class="form-group">
-                                    <label>Host</label>
-                                    <input type="text" class="form-control" ng-model="Settings.Host" />
-                                    <em class="text-muted text-xs">[Example: http://localhost/ServiceName]</em>
-                                </div>
-                                <button type="submit" class="btn btn-sm btn-success" ng-click="save()">Save</button>
-                                
+        <div class="animate-switch-container" ng-switch on="selectedConfig">
+            <div class="animate-switch" ng-switch-when="application">
+                <div class="wrapper-md col-md-6 col-xs-12 col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label>Host</label>
+                                <input type="text" class="form-control" ng-model="Settings.Host" />
+                                <em class="text-muted text-xs">[Example: http://localhost/ServiceName]</em>
                             </div>
                         </div>
-                    </div>
-                    <div class="wrapper-md col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div class="form-group">
-                                    <label>Name</label>
-                                    <input type="text" class="form-control" ng-model="Settings.YourName" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Username</label>
-                                    <input type="text" class="form-control" ng-model="Settings.Username" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input type="password" class="form-control" ng-model="Settings.Password" />
-                                </div>
-                                <button type="submit" class="btn btn-sm btn-success" ng-click="save()">Save</button>
 
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control" ng-model="Settings.YourName" />
                             </div>
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" class="form-control" ng-model="Settings.Username" />
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control" ng-model="Settings.Password" />
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-success" ng-click="save()">Save</button>
+
                         </div>
+
                     </div>
                 </div>
+            </div>
+            <div class="animate-switch" ng-switch-when="project">
+                <settings-crud collection-name="Project"></settings-crud>
             </div>
         </div>
     </div>
