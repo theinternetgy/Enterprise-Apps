@@ -34,6 +34,7 @@ namespace webapi.Models
         public DbSet<File> Files { get; set; }
         public DbSet<Table> Tables { get; set; }
         public DbSet<Stackholder> Stackholders { get; set; }
+        public DbSet<Log> Logs { get; set; }
     }
 
     public static class DbSetExtensions

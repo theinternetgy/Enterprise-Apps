@@ -2436,7 +2436,6 @@
     <Content Include="img\p0.jpg" />
     <Content Include="img\simpleone-logo1.png" />
     <Content Include="index.html" />
-    <Content Include="index1.html" />
     <Content Include="js\angular-animate.min.js" />
     <Content Include="js\angular-loader.min.js" />
     <Content Include="js\angular-local-storage.js" />
@@ -2462,6 +2461,7 @@
     <Content Include="js\ui-nav.js" />
     <Content Include="js\ui-toggle.js" />
     <Content Include="main.js" />
+    <Content Include="views\timeline.html" />
     <Content Include="views\crud.html" />
     <Content Include="views\dashboard.html" />
     <Content Include="views\featureslist.html" />

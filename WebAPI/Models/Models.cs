@@ -23,11 +23,15 @@ namespace webapi.Models
 
         public string Created { get; set; }
         public string Updated { get; set; }
-
+        public List<Stackholder> Stackholders { get; set; }
         public List<File> Files { get; set; }
         public List<Table> Tables { get; set; }
-
-        public List<Stackholder> Stackholders { get; set; }
+        public List<StoredProcedure> StoredProcedures { get; set; }
+        public List<Function> Functions { get; set; }
+        public List<UnitTestCase> UnitTestCases { get; set; }
+        public List<RepositoryItem> RepositoyItems { get; set; }
+        public List<OtherInfoItem> OtherInfoItems { get; set; }
+        public List<Log> Logs { get; set; }
     }
 
     public class FilterProperties: Feature
@@ -60,9 +64,38 @@ namespace webapi.Models
 
     }
 
+    public class StoredProcedure : BaseCrudClass
+    {
+
+    }
+
+    public class Function : BaseCrudClass
+    {
+
+    }
+
     public class Stackholder : BaseCrudClass
     {
 
     }
 
+    public class UnitTestCase : BaseCrudClass
+    {
+
+    }
+
+    public class RepositoryItem : BaseCrudClass
+    {
+
+    }
+
+    public class OtherInfoItem : BaseCrudClass
+    {
+
+    }
+
+    public class Log : BaseCrudClass
+    {
+        public string Date { get; set; }
+    }
 }

@@ -35,9 +35,11 @@
             $scope.title = 'Edit Feature';
             $scope.Feature = d;
             $scope.loading = false;
+            $scope.editmode = true;
         });
     }
     $scope.cancel = function () {
+        $scope.editmode = false;
         $location.path('/features');
     }
     $scope.init = function () {

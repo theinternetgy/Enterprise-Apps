@@ -28,6 +28,6 @@ var app = angular.module('myapp', ['LocalStorageModule', 'ngSanitize', 'ngRoute'
     .when('/settings', { templateUrl: 'views/settings.html', controller: 'settingsCtrl' })
 }).filter('moment', function () {
     return function (dateString, format) {
-        if(dateString && dateString!='') return moment(dateString).format(format);
+        if (dateString && dateString != '' && moment(dateString).isValid()) return moment(dateString).format(format);
     };
 });

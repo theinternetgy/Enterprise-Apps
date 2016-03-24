@@ -1,3 +1,4 @@
+<div id="pluswrap" ng-show="loading"><div class="plus"><h1 class="text-muted font-thin"><i class="fa fa-spinner text-primary-dker fa-spin"></i> loading...</h1></div></div>
 
   <div class="col w-md lter b-r">
     <div class="vbox">
@@ -39,6 +40,10 @@
                         <select ui-jq="chosen" class="w" ng-model="Feature.Status" ng-options="value.Id as value.text for value in Masters.Status"></select>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label>Keywords</label>
+                    <input type="email" class="form-control" ng-model="Feature.Keywords" />
+                </div>
               <div class="form-group" ng-show="Feature.Created">
                 <label>Created</label>
                 <div>
@@ -59,9 +64,6 @@
 <div class="col">
   <div class="vbox">
       <div class="wrapper bg-light lter b-b">
-          <div class="pull-right">
-              <div ng-show="loading"><i class="fa fa-spinner text-danger fa-2x fa-spin"></i></div>
-          </div>
           <h1 class="m-n font-thin h3" ng-bind="title"></h1>
       </div>
     
@@ -79,12 +81,8 @@
                   </div>
                   <div class="form-group">
                     <label>Description</label>
-                    <textarea class="form-control" rows="5" ng-model="Feature.Description"></textarea>
-                  </div>
-                    <div class="form-group">
-                        <label>Keywords</label>
-                        <input type="email" class="form-control" ng-model="Feature.Keywords" />
-                    </div>
+                    <textarea class="form-control" rows="15" ng-model="Feature.Description"></textarea>
+                  </div>                    
                   <button type="submit" class="btn btn-sm btn-primary" ng-click="save(Feature)" ng-disabled="processing">
                       <div ng-hide="processing">
                           <span ng-hide="editmode">Submit</span>
@@ -94,15 +92,10 @@
                   </button>
                     <button class="pull-right btn btn-default" ng-click="cancel()">Cancel</button>
                 </form>
+                  
               </div>
             </div>
 
-          </div>
-
-          <div class="wrapper-md col-md-12">
-
-            
-             
           </div>
         </div>
       </div>
@@ -110,7 +103,7 @@
   </div>
 </div>
 
-<div class="col w-xl bg-white-only b-l bg-auto no-border-xs">
+<div class="col w-xxl bg-white-only b-l bg-auto no-border-xs">
     <div class="panel-group" id="accordion">
 
         <div class="panel panel-default">
@@ -119,7 +112,7 @@
                     Stackholders
                 </h4>
             </div>
-            <div id="divstackholder" class="panel-collapse">
+            <div id="divstackholder" class="panel-collapse collapse">
                 <div class="panel-body">
                     <crud collection-name="stackholders" list="Feature.Stackholders" primaryid="Feature.Id" labels="{name:'Stackholder Name',info:'Work Assigned'}"></crud>
                 </div>
@@ -160,7 +153,7 @@
             </div>
             <div id="divsps" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <!--<crud collection-name="storedprocedures"></crud>-->
+                    <crud collection-name="storedprocedures" list="Feature.StoredProcedures" primaryid="Feature.Id"></crud>
                 </div>
             </div>
         </div>
@@ -173,7 +166,7 @@
             </div>
             <div id="divfunctions" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <!--<crud collection-name="functions"></crud>-->
+                    <crud collection-name="functions" list="Feature.Functions" primaryid="Feature.Id"></crud>
                 </div>
             </div>
         </div>
@@ -186,7 +179,7 @@
             </div>
             <div id="divunittest" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <!--<crud collection-name="unittestscenarios"></crud>-->
+                    <crud collection-name="UnitTestCases" list="Feature.UnitTestCases" primaryid="Feature.Id"></crud>
                 </div>
             </div>
         </div>
@@ -199,23 +192,7 @@
             </div>
             <div id="divrepoinfo" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <p class="text-muted">Provide repositoy information, branch, changeset, customer if any</p>
-                    <div class="form-group">
-                        <label>Branch</label>
-                        <input type="text" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label>Changeset Number</label>
-                        <input type="text" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label>Customer</label>
-                        <input type="text" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-success">Save</button>
-                    </div>
-                    <!--<crud collection-name="references"></crud>-->
+                    <crud collection-name="RepositoryInfo" list="Feature.RepositoyItems" primaryid="Feature.Id"></crud>
                 </div>
             </div>
         </div>
@@ -228,28 +205,14 @@
             </div>
             <div id="divconcern" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <p class="text-muted">Discuss the concerned items (if any). if there is any db related queries/doubts, performance related points/issues.clarify all the issues and resolve it.</p>
-                    <div class="form-group">
-                        <label>Question</label>
-                        <input type="text" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label>Detail</label>
-                        <input type="text" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label>Answer</label>
-                        <input type="text" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-success">Save</button>
-                    </div>
-                    <!--<crud collection-name="references"></crud>-->
+                    <crud collection-name="OtherInfoItems" list="Feature.OtherInfoItems" primaryid="Feature.Id"></crud>
                 </div>
             </div>
         </div>
 
 
     </div>
+
+    <timeline collection-name="featurelogs" primaryid="Feature.Id" list="Feature.Logs"></timeline>
      
 </div>

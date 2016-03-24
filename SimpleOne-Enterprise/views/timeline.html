@@ -1,0 +1,12 @@
+<div class="padder-md">
+    <div class="form-group">
+        <input type="text" ng-model="Feature.Log.Info" my-enter="save()" placeholder="what's happening" class="form-control" maxlength="100"/>
+    </div>
+    <div class="streamline b-l m-b" ng-show="list && list.length>0">
+        <div class="sl-item b-primary b-l" ng-class="i.Css" ng-repeat="i in list | orderBy:'-Date'">
+            <div class="m-l">
+                <div class="text-muted" ng-bind="i.Date | moment:formats.datetimeformat"></div><p ng-bind="i.Info"></p>
+            </div>
+        </div>
+    </div>
+</div>

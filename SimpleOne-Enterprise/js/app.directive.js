@@ -120,4 +120,56 @@
 
         }
     }
+}).directive('timeline', function (crudService, utilsFac) {
+    return {
+        restrict: 'E',
+        templateUrl: 'views/timeline.html',
+        scope: {
+            primaryid: '=',
+            collectionName: '@',
+            list:'=',
+            labels: '='
+        },
+        controller: function ($scope, $timeout, $rootScope) {
+            
+            $scope.init = function () {
+                $scope.formats = utilsFac.formats();
+                $scope.props = {};
+                $scope.loadingView = $rootScope.loadingView;
+                $scope.allSet = crudService.ok();
+                 
+                //$scope.$watch('primaryid', function (val) {
+                //    if ($scope.primaryid && $scope.primaryid > 0) $scope.actionList();
+                //});
+            }
+            $scope.edit = function (index) {
+                
+            }
+            $scope.cancel = function (index) {
+                
+            }
+            $scope.save = function () {
+                if (!$scope.list) $scope.list = [];
+                var log = { FeatureId: $scope.primaryid, Date: moment(), Css: 'b-danger', Info: $scope.Feature.Log.Info, UId: $scope.list.length + 1 };
+                //$scope.list.push(log);
+                $scope.list.splice(0, 0, log);
+                $scope.Feature.Log = {};
+            }
+              
+            $scope.init();
+
+        }
+    }
+}).directive('myEnter', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 13) {
+                scope.$apply(function (){
+                    scope.$eval(attrs.myEnter);
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
 });
