@@ -252,6 +252,7 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BaseEntity.cs" />
+    <Compile Include="Models\Common\Constants.cs" />
     <Compile Include="Models\Common\CrudOperation.cs" />
     <Compile Include="Models\FeaturesService.cs" />
     <Compile Include="Models\MasterData.cs" />

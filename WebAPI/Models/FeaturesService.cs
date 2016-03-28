@@ -7,6 +7,8 @@ using System.Web;
 using webapi.Models;
 using webapi.Models.Common;
 using System.Text;
+using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 
 namespace webapi.Models
 {
@@ -21,17 +23,15 @@ namespace webapi.Models
 
         public Feature Save(Feature feature)
         {
-            string datetimeformat = "yyyy-MM-dd HH:mm:ss";//, dateformat= "YYYY-MM-DD";
-            string now= DateTime.Now.ToString(datetimeformat);
-
+              
             #region [-- Create New --]
 
 
             if (feature.Id == 0)
             {
                 feature.GUID = Guid.NewGuid();
-                feature.Created = now;
-                feature.Updated = now;
+                feature.Created = Helper.now;
+                feature.Updated = Helper.now;
 
                 db.Featues.Add(feature);
             }
@@ -41,7 +41,7 @@ namespace webapi.Models
 
             else
             {
-                feature.Updated = now;
+                feature.Updated = Helper.now;
 
                 var existingFeature = db.Featues.AsNoTracking().Where(o=>o.Id == feature.Id)
                                             .Include(s => s.Stackholders)
@@ -55,15 +55,36 @@ namespace webapi.Models
                                             .Include(s => s.Logs)
                                             .FirstOrDefault<Feature>();
 
+                #region [-- Logs --]
+
+                IEnumerable<Log> addedLogs = null;
+                IEnumerable<Log> modifiedLogs = null;
+                
+
+                if (feature.Logs != null)
+                {
+                    addedLogs = feature.Logs.Except(existingFeature.Logs, tchr => tchr.Id);
+                    //addedLogs.ToList().ForEach(log => log.Date = now);
+                    addedLogs.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Added);
+
+                    modifiedLogs = feature.Logs.Except(addedLogs, tchr => tchr.Id);
+                    modifiedLogs.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Modified);
+                }
+
+                #endregion
+
                 #region [-- Stackholders --]
 
                 if (feature.Stackholders != null)
                 {
-                    var addedStackholders = feature.Stackholders.Except(existingFeature.Stackholders, tchr => tchr.Id);
-                    addedStackholders.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Added);
+                    var repo = new FeaturesRepository<Stackholder>(db, CrudTypes.Stackholders, feature.Id);
+                    repo.AddOrUpdate(existingFeature.Stackholders, feature.Stackholders);
 
-                    var modifiedStackholders = feature.Stackholders.Except(addedStackholders, tchr => tchr.Id);
-                    modifiedStackholders.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Modified);
+                    //var addedStackholders = feature.Stackholders.Except(existingFeature.Stackholders, tchr => tchr.Id);
+                    //addedStackholders.ToList().ForEach(stk => {db.Entry(stk).State = EntityState.Added;});
+
+                    //var modifiedStackholders = feature.Stackholders.Except(addedStackholders, tchr => tchr.Id);
+                    //modifiedStackholders.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Modified);
                 }
 
                 #endregion
@@ -157,19 +178,7 @@ namespace webapi.Models
 
                 #endregion
 
-                #region [-- Logs --]
 
-                if (feature.Logs != null)
-                {
-                    var addedLogs = feature.Logs.Except(existingFeature.Logs, tchr => tchr.Id);
-                    //addedLogs.ToList().ForEach(log => log.Date = now);
-                    addedLogs.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Added);
-
-                    var modifiedLogs = feature.Logs.Except(addedLogs, tchr => tchr.Id);
-                    modifiedLogs.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Modified);
-                }
-
-                #endregion
 
                 #region unused
 
@@ -284,4 +293,68 @@ namespace webapi.Models
             return result;
         }
     }
+
+
+    public class FeaturesRepository<T> where T : class,IBaseCrud
+    {
+
+        AppDbContext db = null;
+        CrudTypes crudType;
+        int primaryId = 0;
+        public FeaturesRepository(CrudTypes _type, int _primaryId)
+        {
+            db = new AppDbContext();
+            this.crudType = _type;
+            this.primaryId = _primaryId;
+        }
+        public FeaturesRepository(AppDbContext _db, CrudTypes _type, int _primaryId)
+        {
+            this.db = _db;
+            this.crudType = _type;
+            this.primaryId = _primaryId;
+        }
+
+        /// <summary>
+        /// To add or update the records
+        /// </summary>
+        /// <param name="ItemsFromDb">existing list of items in db</param>
+        /// <param name="ItemsUpdated">added or modified list of items from front end</param>
+        public void AddOrUpdate(IEnumerable<T> ItemsFromDb,IEnumerable<T> ItemsUpdated)
+        {
+
+            var addedItems = ItemsUpdated.Except(ItemsFromDb, tchr => tchr.Id);
+            addedItems.ToList().ForEach(stk => {
+                db.Entry(stk).State = EntityState.Added;
+            });
+
+
+            var modifiedItems = ItemsUpdated.Except(addedItems, tchr => tchr.Id);
+            if (modifiedItems != null && modifiedItems.Count() > 0)
+            {
+                var log = new StringBuilder();
+                bool ismodified = false;
+                 
+                modifiedItems.ToList().ForEach(stk =>
+                {
+                    var entry = db.Entry(stk);
+                    entry.State = EntityState.Modified;
+                    foreach (var prop in entry.OriginalValues.PropertyNames)
+                    {
+                        var original = entry.GetDatabaseValues().GetValue<object>(prop);
+                        var current = entry.CurrentValues.GetValue<object>(prop);
+                        if (!object.Equals(original, current))
+                        {
+                            entry.Property(prop).IsModified = true;
+                            ismodified = true;
+                            Debug.WriteLine("original:" + original, ", current:" + current);
+                            log.AppendFormat("<span class=\"text-muted\">{0} : {1} ({2})</span>", prop, current.ToString(),original.ToString()).AppendLine();
+                        }
+                    }                    
+                });
+                if(ismodified)
+                db.Logs.Add(new Log { Info = string.Format(" {0} Modified <br />{1}", this.crudType, log.ToString()), Active = true, Date = Helper.now, FeatureId = this.primaryId });
+            }
+        }
+    }
+
 }

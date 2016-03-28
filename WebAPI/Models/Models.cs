@@ -54,6 +54,15 @@ namespace webapi.Models
         public int FeatureId { get; set; }
     }
 
+    public interface IBaseCrud
+    {
+        int Id { get; }
+        string Name { get; }
+        string Info { get; }
+        bool Active { get; }
+        int FeatureId { get; }
+    }
+
     public class File : BaseCrudClass
     {
         
@@ -74,7 +83,7 @@ namespace webapi.Models
 
     }
 
-    public class Stackholder : BaseCrudClass
+    public class Stackholder : BaseCrudClass, IBaseCrud
     {
 
     }

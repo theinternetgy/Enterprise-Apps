@@ -5,7 +5,7 @@
     <div class="streamline b-l m-b" ng-show="list && list.length>0">
         <div class="sl-item b-primary b-l" ng-class="i.Css" ng-repeat="i in list | orderBy:'-Date'">
             <div class="m-l">
-                <div class="text-muted" ng-bind="i.Date | moment:formats.datetimeformat"></div><p ng-bind="i.Info"></p>
+                <div class="text-muted" ng-bind="i.Date | moment:formats.datetimeformat"></div><p ng-bind-html="i.Info"></p>
             </div>
         </div>
     </div>

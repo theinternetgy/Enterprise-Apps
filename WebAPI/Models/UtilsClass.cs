@@ -5,6 +5,24 @@ using System.Web;
 
 namespace webapi.Models
 {
+
+    public static class Helper
+    {
+        public static string datetimeformat = "yyyy-MM-dd HH:mm:ss";//, dateformat= "YYYY-MM-DD";
+        static string _now;
+        public static string now
+        {
+            get {
+                if (_now != null && string.IsNullOrEmpty(_now) == false) return _now;
+                else {
+                    _now = DateTime.Now.ToString(datetimeformat);
+                    return _now;
+                }
+            }
+            set { }
+        }
+    }
+
     //class EqualityComparer : IEqualityComparer<Stackholder>
     //{
     //    public bool Equals(Stackholder x, Stackholder y)
