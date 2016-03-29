@@ -7,15 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleOne-Enterprise", "Sim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{DA3821CE-17F1-4F80-8F37-AD24D561CB51}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildProcess", "BuildProcess", "{20DFBF2A-1824-4110-B1F7-E8BE7BFD7D37}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{A45AE5B3-5460-4068-9B87-C7236FACBE97}"
-	ProjectSection(SolutionItems) = preProject
-		C:\Users\drajaman\Desktop\create-new.png = C:\Users\drajaman\Desktop\create-new.png
-		C:\Users\drajaman\Desktop\dashboard.png = C:\Users\drajaman\Desktop\dashboard.png
-		C:\Users\drajaman\Desktop\features.png = C:\Users\drajaman\Desktop\features.png
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,8 +24,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{A45AE5B3-5460-4068-9B87-C7236FACBE97} = {20DFBF2A-1824-4110-B1F7-E8BE7BFD7D37}
 	EndGlobalSection
 EndGlobal
