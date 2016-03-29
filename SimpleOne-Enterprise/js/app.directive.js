@@ -239,10 +239,14 @@
             primaryid: '=',
             collectionName: '@',
             list:'=',
-            labels: '='
+            labels: '=',
+            placeholder: '@',
+            enableEdit: '@',
+            noTime: '@',
+            sortField: '@',
+            pushItem:'@'
         },
         controller: function ($scope, $timeout, $rootScope) {
-            
             $scope.init = function () {
                 $scope.formats = utilsFac.formats();
                 $scope.props = {};
@@ -260,15 +264,19 @@
                 
             }
             $scope.save = function () {
+                if (!$scope.Feature.Log.Info || $scope.Feature.Log.Info.length == 0) return;
                 if (!$scope.list) $scope.list = [];
-                var log = { FeatureId: $scope.primaryid, Date: moment(), Css: 'b-danger', Info: $scope.Feature.Log.Info, UId: $scope.list.length + 1 };
-                //$scope.list.push(log);
-                $scope.list.splice(0, 0, log);
+                var log = { FeatureId: $scope.primaryid, Date: moment(), Css: 'b-danger', Info: $scope.Feature.Log.Info,Active:true, UId: $scope.list.length + 1 };
+                if ($scope.pushItem) {
+                    console.log('push item :', log);
+                    $scope.list.push(log);
+                } else {
+                    console.log('slice item :', log);
+                    $scope.list.splice(0, 0, log);
+                }                
                 $scope.Feature.Log = {};
             }
-              
             $scope.init();
-
         }
     }
 }).directive('myEnter', function () {
@@ -278,7 +286,6 @@
                 scope.$apply(function (){
                     scope.$eval(attrs.myEnter);
                 });
-
                 event.preventDefault();
             }
         });

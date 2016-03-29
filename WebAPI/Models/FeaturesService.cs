@@ -53,6 +53,7 @@ namespace webapi.Models
                                             .Include(s => s.RepositoyItems)
                                             .Include(s => s.OtherInfoItems)
                                             .Include(s => s.Logs)
+                                            .Include(s => s.StoryPoints)
                                             .FirstOrDefault<Feature>();
 
                 #region [-- Logs --]
@@ -178,7 +179,18 @@ namespace webapi.Models
 
                 #endregion
 
+                #region [-- StoryPoints --]
 
+                if (feature.StoryPoints != null)
+                {
+                    var addedStoryPoints = feature.StoryPoints.Except(existingFeature.StoryPoints, tchr => tchr.Id);
+                    addedStoryPoints.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Added);
+
+                    var modifiedStoryPoints = feature.StoryPoints.Except(addedStoryPoints, tchr => tchr.Id);
+                    modifiedStoryPoints.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Modified);
+                }
+
+                #endregion
 
                 #region unused
 
@@ -202,7 +214,7 @@ namespace webapi.Models
             #endregion
 
             db.SaveChanges();
-
+            
             if(feature.Id>0)
             {
                 return this.GetFirst(feature.Id);
@@ -224,6 +236,7 @@ namespace webapi.Models
                 .Include(o=>o.RepositoyItems)
                 .Include(o=>o.OtherInfoItems)
                 .Include(o=>o.Logs)
+                .Include(o=>o.StoryPoints)
                 .FirstOrDefault();
             return feature;
         }

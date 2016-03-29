@@ -9,7 +9,7 @@
         <li class="list-group-item" ng-hide="list && list.length>0"><center>No {{collectionName}}.</center></li>
     </ul>
 </div>              
-<div ng-show="props.createnew || props.editrecord" class="well">
+<div ng-show="props.createnew || props.editrecord || (!list || list.length==0)" class="well">
     <div class="form-group">
         <label ng-bind="labels.name"></label>
         <input type="text" class="form-control" ng-model="item.Name" my-enter="save(item)" />

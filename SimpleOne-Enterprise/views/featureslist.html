@@ -2,19 +2,28 @@
   <div class="col w-md bg-light dk b-r bg-auto">
     <div class="wrapper b-b bg">
         <div class="">
-            <input type="text" ng-model="filterQry1" class="form-control input-sm" placeholder="filter...">
+            <!--<input type="text" ng-model="filterQry1" class="form-control input-sm" placeholder="filter...">-->
+            <div class="input-group">
+                <input type="text" class="form-control input-sm" ng-model="filterQry1">
+                <span class="input-group-btn">
+                    <button class="btn btn-default btn-sm" type="button" ng-click="filterQry1=''">X</button>
+                </span>
+            </div>
         </div>
     </div>
-    <div class="wrapper hidden-sm hidden-xs" id="email-menu">
-        <div class="wrapper">Modules</div>
+    <div ng-show="filtered"><a ng-click="clearFilter()" class="pull-right" href>Clear filter</a></div>
+    <div class="wrapper">
+      <div class="font-thin h4 b-b b-l-4x">Modules</div>
       <ul class="nav nav-pills nav-stacked nav-sm">
         <li ng-repeat="i in Masters.Modules | filter:filterQry1 | orderBy: 'text'" ng-class="getclass('m',i.text)"><a ng-bind="i.text" ng-click="mod(i)"></a></li>
       </ul>
-      <div class="wrapper">Pages</div>
-      <ul class="nav nav-pills nav-stacked nav-sm">
-        <li ng-repeat="i in Masters.Pages | filter:filterQry1 | orderBy: 'text'" ng-class="getclass('p',i.text)"><a ng-bind="i.text" ng-click="page(i)"></a></li>
-      </ul>
     </div>
+      <div class="wrapper">
+          <div class="font-thin h4 b-b b-l-4x">Pages</div>
+          <ul class="nav nav-pills nav-stacked nav-sm">
+              <li ng-repeat="i in Masters.Pages | filter:filterQry1 | orderBy: 'text'" ng-class="getclass('p',i.text)"><a ng-bind="i.text" ng-click="page(i)"></a></li>
+          </ul>
+      </div>
   </div>
   <div class="col">
     

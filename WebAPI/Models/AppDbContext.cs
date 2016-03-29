@@ -36,6 +36,7 @@ namespace webapi.Models
         public DbSet<Table> Tables { get; set; }
         public DbSet<Stackholder> Stackholders { get; set; }
         public DbSet<Log> Logs { get; set; }
+        public DbSet<StoryPoint> StoryPoints { get; set; }
         public DbSet<Settings.MasterItem> Masters { get; set; }
     }
 

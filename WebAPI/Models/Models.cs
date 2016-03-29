@@ -31,7 +31,8 @@ namespace webapi.Models
         public List<UnitTestCase> UnitTestCases { get; set; }
         public List<RepositoryItem> RepositoyItems { get; set; }
         public List<OtherInfoItem> OtherInfoItems { get; set; }
-        public List<Log> Logs { get; set; }
+        public List<Log> Logs {get; set;}
+        public List<StoryPoint> StoryPoints { get; set; }
     }
 
     public class FilterProperties: Feature
@@ -108,5 +109,8 @@ namespace webapi.Models
         public string Date { get; set; }
     }
 
-    
+    public class StoryPoint : BaseCrudClass
+    {
+        public string Date { get; set; }
+    }
 }

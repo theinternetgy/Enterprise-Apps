@@ -81,16 +81,21 @@
                   </div>
                   <div class="form-group">
                     <label>Description</label>
-                    <textarea class="form-control" rows="15" ng-model="Feature.Description"></textarea>
-                  </div>                    
-                  <button type="submit" class="btn btn-sm btn-primary" ng-click="save(Feature)" ng-disabled="processing">
-                      <div ng-hide="processing">
-                          <span ng-hide="editmode">Submit</span>
-                          <span ng-show="editmode">Save Changes</span>
-                      </div>
-                      <span ng-show="processing"><i class="fa fa-spinner fa-spin"></i>&nbsp;Saving...</span>
-                  </button>
-                    <button class="pull-right btn btn-default" ng-click="cancel()">Cancel</button>
+                    <textarea class="form-control" rows="4" ng-model="Feature.Description"></textarea>
+                  </div>     
+                    <div class="form-group">
+                        <timeline collection-name="featurelogs" primaryid="Feature.Id" list="Feature.StoryPoints" placeholder="create story point" enable-edit="true" no-time="true" push-item="true" sort-field="Date"></timeline>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-sm btn-primary" ng-click="save(Feature)" ng-disabled="processing">
+                            <div ng-hide="processing">
+                                <span ng-hide="editmode">Submit</span>
+                                <span ng-show="editmode">Save Changes</span>
+                            </div>
+                            <span ng-show="processing"><i class="fa fa-spinner fa-spin"></i>&nbsp;Saving...</span>
+                        </button>
+                        <button class="pull-right btn btn-sm btn-default" ng-click="cancel()">Cancel</button>
+                    </div>  
                 </form>
                   
               </div>
@@ -213,7 +218,10 @@
 
 
     </div>
-
-    <timeline collection-name="featurelogs" primaryid="Feature.Id" list="Feature.Logs"></timeline>
-     
+    <div class="padder-md">
+        <timeline collection-name="featurelogs" primaryid="Feature.Id" list="Feature.Logs" placeholder="what's happening" sort-field="-Date"></timeline>
+    </div>
 </div>
+<script>
+     
+</script>

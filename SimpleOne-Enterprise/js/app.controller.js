@@ -60,12 +60,22 @@
     
     $scope.filterlist = function (flag) {
         var filter = { Module: $scope.Module, Page: $scope.Page, Status: $scope.Status, Type: $scope.Type }
-        var f = ''; if(flag) f = '?filter='+JSON.stringify(filter);
+        var f = '';
+        if (flag) {
+            $scope.filtered = true;
+            f = '?filter=' + JSON.stringify(filter);
+        }
         //console.log('filter:', f);
         crudService.getItems('features', f).then(function (d) {
             $scope.features = d;
             $scope.loading = false;
         });
+    }
+    $scope.clearFilter = function () {
+        $scope.filtered = undefined;
+        $scope.activeModule = undefined;
+        $scope.activePage = undefined;
+        $scope.filterlist();
     }
     $scope.mod = function (i) { $scope.activeModule = i.text; $scope.Module = i.Id; $scope.filterlist(true); }
     $scope.page = function (i) { $scope.activePage = i.text; $scope.Page = i.Id; $scope.filterlist(true); }

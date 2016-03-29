@@ -5196,3 +5196,10 @@ a.text-#000000:hover {
 .panel .panel-title {cursor:hand;cursor:pointer;}
 ul.nav .active{background-color:#f6f8f8 !important;}
 .crud-tbl-col-text-wrap{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width:300px;max-width: 100px;}
+.timeline > .edit {
+  display: none;
+}
+.timeline:hover > .edit {
+  display: inherit;cursor:hand;cursor:pointer;position:absolute;top: 5px;right:0px;
+}
+.timeline.border{border-bottom:1px solid whitesmoke;}
