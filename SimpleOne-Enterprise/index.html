@@ -19,7 +19,7 @@
 <body>
 <div class="app app-header-fixed app-aside-folded">
   
- <header id="header" class="app-header navbar" role="menu">
+ <header id="header" class="app-header navbar" role="menu" ng-controller="HostController">
           <!-- navbar header -->
       <div class="navbar-header bg-dark">
         <button class="pull-right visible-xs dk" ui-toggle="show" target=".navbar-collapse">
@@ -159,48 +159,21 @@
                 <img src="img/a0.jpg" alt="...">
                 <i class="on md b-white bottom"></i>
               </span>
-              <span class="hidden-sm hidden-md">John.Smith</span> <b class="caret"></b>
+              <span class="" ng-bind="Settings.YourName"></span> <b class="caret"></b>
             </a>
             <!-- dropdown -->
             <ul class="dropdown-menu animated fadeInRight w">
-              <li class="wrapper b-b m-b-sm bg-light m-t-n-xs">
-                <div>
-                  <p>300mb of 500mb used</p>
-                </div>
-                <div class="progress progress-xs m-b-none dker">
-                  <div class="progress-bar progress-bar-info" data-toggle="tooltip" data-original-title="50%" style="width: 50%"></div>
-                </div>
-              </li>
-              <li>
-                <a href>
-                  <span class="badge bg-danger pull-right">30%</span>
-                  <span>Settings</span>
-                </a>
-              </li>
-              <li>
-                <a ui-sref="app.page.profile">Profile</a>
-              </li>
-              <li>
-                <a ui-sref="app.docs">
-                  <span class="label bg-info pull-right">new</span>
-                  Help
-                </a>
-              </li>
-              <li class="divider"></li>
               <li>
                 <a ui-sref="access.signin">Logout</a>
               </li>
             </ul>
-            <!-- / dropdown -->
           </li>
         </ul>
-        <!-- / navbar right -->
       </div>
-      <!-- / navbar collapse -->
   </header>
 
   <!-- aside -->
-  <aside id="aside" class="app-aside hidden-xs bg-dark">
+  <aside id="aside" class="app-aside bg-dark">
           <div class="aside-wrap">
         <div class="navi-wrap">
           <!-- user -->
@@ -214,7 +187,7 @@
               <a href="#" data-toggle="dropdown" class="dropdown-toggle hidden-folded">
                 <span class="clear">
                   <span class="block m-t-sm">
-                    <strong class="font-bold text-lt">John.Smith</strong> 
+                    <strong class="font-bold text-lt" ng-bind="Settings.YourName"></strong> 
                     <b class="caret"></b>
                   </span>
                   <span class="text-muted text-xs block">Art Director</span>

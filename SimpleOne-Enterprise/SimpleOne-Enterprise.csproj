@@ -2462,6 +2462,7 @@
     <Content Include="js\ui-nav.js" />
     <Content Include="js\ui-toggle.js" />
     <Content Include="main.js" />
+    <Content Include="views\login.html" />
     <Content Include="views\settings\crud.html" />
     <Content Include="views\settings\application.html" />
     <Content Include="views\timeline.html" />

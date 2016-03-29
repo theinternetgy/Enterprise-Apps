@@ -5,11 +5,11 @@
         scope: {
             primaryid: '=',
             collectionName: '@',
-            list:'=',
+            list: '=',
             labels: '='
         },
         controller: function ($scope, $timeout, $rootScope) {
-            
+
             $scope.init = function () {
                 $scope.props = {};
                 $scope.props.lblsavebtn = 'Add';
@@ -36,8 +36,8 @@
             }
             $scope.save = function (item) {
                 item.FeatureId = $scope.primaryid;
-                var props=$scope.props;
-                if (props.editrecord && Number(props.selectedIndex)>-1) {
+                var props = $scope.props;
+                if (props.editrecord && Number(props.selectedIndex) > -1) {
                     //console.log('save-edit');
                     $scope.item = {};
                     $scope.props.editrecord = false;
@@ -53,11 +53,11 @@
                     $scope.item = {};
                 }
                 //$scope.message = { content: 'Saved.', css: 'alert alert-success' };
-                
+
             }
-            var setMessage = function(message){
+            var setMessage = function (message) {
                 $scope.message = message;
-                $timeout(function() {
+                $timeout(function () {
                     $scope.message = null;
                 }, 1000);
             };
@@ -75,7 +75,7 @@
                     $scope.loadingView = false;
                 });
             };
- 
+
             $scope.actionCreate = function () {
                 $scope.viewMode = 'create';
                 if (!$scope.allSet) return false;
@@ -83,16 +83,16 @@
                     $scope.details = details;
                 });
             };
- 
+
             $scope.actionDetails = function (id) {
                 if (!$scope.allSet) return false;
                 $scope.viewMode = 'details';
- 
+
                 crudService.getItem($scope.collectionName, id).then(function (details) {
                     $scope.details = details;
                 });
             };
- 
+
             $scope.actionSave = function () {
                 if (!$scope.allSet) return false;
                 crudService.saveItem($scope.collectionName, $scope.details.document, function (data) {
@@ -100,7 +100,7 @@
                     $scope.actionList();
                 });
             };
- 
+
             $scope.actionUpdate = function () {
                 if (!$scope.allSet) return false;
                 crudService.updateItem($scope.collectionName, $scope.details.document, function (data) {
@@ -108,7 +108,7 @@
                     $scope.actionList();
                 });
             };
- 
+
             $scope.actionRemove = function (_id) {
                 if (!$scope.allSet) return false;
                 crudService.removeItem($scope.collectionName, _id, function (data) {
@@ -116,7 +116,7 @@
                     $scope.actionList();
                 });
             };
- 
+
             $scope.init();
 
         }
@@ -137,7 +137,7 @@
                 $scope.Form = { Active: true };
             }
             $scope.init = function () {
-                
+
                 $scope.props = {};
                 $scope.props.lblsavebtn = 'Add';
                 $scope.loadingView = $rootScope.loadingView;
@@ -155,7 +155,7 @@
                     $scope.message = null;
                 }, 1000);
             };
-            
+
             $scope.edit = function (index) {
                 $scope.props.lblsavebtn = 'Save';
                 $scope.props.selectedIndex = index;
@@ -168,11 +168,11 @@
                 $scope.message = undefined;
                 $scope.item = {};
             }
-          
+
             $scope.actionList = function () {
                 $scope.loadingView = true;
                 if (!$scope.allSet) return false;
-                var filter = '?filter=' + JSON.stringify({MasterType:$scope.collectionName});
+                var filter = '?filter=' + JSON.stringify({ MasterType: $scope.collectionName });
                 crudService.getItems(baseController, undefined, filter).then(function (list) {
                     $scope.list = list;
                     $scope.loadingView = false;
@@ -238,13 +238,13 @@
         scope: {
             primaryid: '=',
             collectionName: '@',
-            list:'=',
+            list: '=',
             labels: '=',
             placeholder: '@',
             enableEdit: '@',
             noTime: '@',
             sortField: '@',
-            pushItem:'@'
+            pushItem: '@'
         },
         controller: function ($scope, $timeout, $rootScope) {
             $scope.init = function () {
@@ -252,28 +252,28 @@
                 $scope.props = {};
                 $scope.loadingView = $rootScope.loadingView;
                 $scope.allSet = crudService.ok();
-                 
+
                 //$scope.$watch('primaryid', function (val) {
                 //    if ($scope.primaryid && $scope.primaryid > 0) $scope.actionList();
                 //});
             }
             $scope.edit = function (index) {
-                
+
             }
             $scope.cancel = function (index) {
-                
+
             }
             $scope.save = function () {
                 if (!$scope.Feature.Log.Info || $scope.Feature.Log.Info.length == 0) return;
                 if (!$scope.list) $scope.list = [];
-                var log = { FeatureId: $scope.primaryid, Date: moment(), Css: 'b-danger', Info: $scope.Feature.Log.Info,Active:true, UId: $scope.list.length + 1 };
+                var log = { FeatureId: $scope.primaryid, Date: moment(), Css: 'b-danger', Info: $scope.Feature.Log.Info, Active: true, UId: $scope.list.length + 1 };
                 if ($scope.pushItem) {
                     console.log('push item :', log);
                     $scope.list.push(log);
                 } else {
                     console.log('slice item :', log);
                     $scope.list.splice(0, 0, log);
-                }                
+                }
                 $scope.Feature.Log = {};
             }
             $scope.init();
@@ -282,12 +282,28 @@
 }).directive('myEnter', function () {
     return function (scope, element, attrs) {
         element.bind("keydown keypress", function (event) {
-            if(event.which === 13) {
-                scope.$apply(function (){
+            if (event.which === 13) {
+                scope.$apply(function () {
                     scope.$eval(attrs.myEnter);
                 });
                 event.preventDefault();
             }
         });
+    };
+}).directive('focus',
+function ($timeout) {
+    return {
+        scope: {
+            trigger: '@focus'
+        },
+        link: function (scope, element) {
+            scope.$watch('trigger', function (value) {
+                if (value === "true") {
+                    $timeout(function () {
+                        element[0].focus();
+                    });
+                }
+            });
+        }
     };
 });

@@ -64,22 +64,22 @@ namespace webapi.Models
         int FeatureId { get; }
     }
 
-    public class File : BaseCrudClass
+    public class File : BaseCrudClass, IBaseCrud
     {
         
     }
 
-    public class Table : BaseCrudClass
+    public class Table : BaseCrudClass, IBaseCrud
     {
 
     }
 
-    public class StoredProcedure : BaseCrudClass
+    public class StoredProcedure : BaseCrudClass, IBaseCrud
     {
 
     }
 
-    public class Function : BaseCrudClass
+    public class Function : BaseCrudClass, IBaseCrud
     {
 
     }
@@ -89,17 +89,17 @@ namespace webapi.Models
 
     }
 
-    public class UnitTestCase : BaseCrudClass
+    public class UnitTestCase : BaseCrudClass, IBaseCrud
     {
 
     }
 
-    public class RepositoryItem : BaseCrudClass
+    public class RepositoryItem : BaseCrudClass, IBaseCrud
     {
 
     }
 
-    public class OtherInfoItem : BaseCrudClass
+    public class OtherInfoItem : BaseCrudClass, IBaseCrud
     {
 
     }
@@ -109,7 +109,7 @@ namespace webapi.Models
         public string Date { get; set; }
     }
 
-    public class StoryPoint : BaseCrudClass
+    public class StoryPoint : BaseCrudClass,IBaseCrud
     {
         public string Date { get; set; }
     }

@@ -90,107 +90,70 @@ namespace webapi.Models
 
                 #endregion
 
-                #region [-- Files --]
+                //Files
 
                 if (feature.Files != null)
                 {
-                    var addedFiles = feature.Files.Except(existingFeature.Files, tchr => tchr.Id);
-                    addedFiles.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Added);
-
-                    var modifiedFiles = feature.Files.Except(addedFiles, tchr => tchr.Id);
-                    modifiedFiles.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Modified);
+                    var repo = new FeaturesRepository<File>(db, CrudTypes.Files, feature.Id);
+                    repo.AddOrUpdate(existingFeature.Files, feature.Files);
                 }
 
-                #endregion
-
-                #region [-- Tables --]
+                //Tables
 
                 if (feature.Tables != null)
                 {
-                    var addedTables = feature.Tables.Except(existingFeature.Tables, tchr => tchr.Id);
-                    addedTables.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Added);
-
-                    var modifiedTables = feature.Tables.Except(addedTables, tchr => tchr.Id);
-                    modifiedTables.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Modified);
+                    var repo = new FeaturesRepository<Table>(db, CrudTypes.Tables, feature.Id);
+                    repo.AddOrUpdate(existingFeature.Tables, feature.Tables);
                 }
 
-                #endregion
-
-                #region [-- StoredProcedures --]
+                //StoredProcedures
 
                 if (feature.StoredProcedures != null)
                 {
-                    var addedStoredProcedures = feature.StoredProcedures.Except(existingFeature.StoredProcedures, tchr => tchr.Id);
-                    addedStoredProcedures.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Added);
-
-                    var modifiedStoredProcedures = feature.StoredProcedures.Except(addedStoredProcedures, tchr => tchr.Id);
-                    modifiedStoredProcedures.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Modified);
+                    var repo = new FeaturesRepository<StoredProcedure>(db, CrudTypes.StoredProcedures, feature.Id);
+                    repo.AddOrUpdate(existingFeature.StoredProcedures, feature.StoredProcedures);                    
                 }
 
-                #endregion
-
-                #region [-- Functions --]
+                //Functions
 
                 if (feature.Functions != null)
                 {
-                    var addedFunctions = feature.Functions.Except(existingFeature.Functions, tchr => tchr.Id);
-                    addedFunctions.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Added);
-
-                    var modifiedFunctions = feature.Functions.Except(addedFunctions, tchr => tchr.Id);
-                    modifiedFunctions.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Modified);
+                    var repo = new FeaturesRepository<Function>(db, CrudTypes.Functions, feature.Id);
+                    repo.AddOrUpdate(existingFeature.Functions, feature.Functions);                    
                 }
 
-                #endregion
-
-                #region [-- UnitTestCases --]
+                //UnitTestCases
 
                 if (feature.UnitTestCases != null)
                 {
-                    var addedUnitTestCases = feature.UnitTestCases.Except(existingFeature.UnitTestCases, tchr => tchr.Id);
-                    addedUnitTestCases.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Added);
-
-                    var modifiedUnitTestCases = feature.UnitTestCases.Except(addedUnitTestCases, tchr => tchr.Id);
-                    modifiedUnitTestCases.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Modified);
+                    var repo = new FeaturesRepository<UnitTestCase>(db, CrudTypes.UnitTestcases, feature.Id);
+                    repo.AddOrUpdate(existingFeature.UnitTestCases, feature.UnitTestCases);                    
                 }
-                #endregion
 
-                #region [-- RepositoryInfoItems --]
+                //RepositoryInfoItems
 
                 if (feature.RepositoyItems != null)
                 {
-                    var addedRepositoryInfoItems = feature.RepositoyItems.Except(existingFeature.RepositoyItems, tchr => tchr.Id);
-                    addedRepositoryInfoItems.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Added);
-
-                    var modifiedRepositoryInfoItems = feature.RepositoyItems.Except(addedRepositoryInfoItems, tchr => tchr.Id);
-                    modifiedRepositoryInfoItems.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Modified);
+                    var repo = new FeaturesRepository<RepositoryItem>(db, CrudTypes.RepositoryInfo, feature.Id);
+                    repo.AddOrUpdate(existingFeature.RepositoyItems, feature.RepositoyItems);                    
                 }
-                #endregion
 
-                #region [-- OtherInfoItems --]
+                //OtherInfoItems
 
                 if (feature.OtherInfoItems != null)
                 {
-                    var addedOtherInfoItems = feature.OtherInfoItems.Except(existingFeature.OtherInfoItems, tchr => tchr.Id);
-                    addedOtherInfoItems.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Added);
-
-                    var modifiedOtherInfoItems = feature.OtherInfoItems.Except(addedOtherInfoItems, tchr => tchr.Id);
-                    modifiedOtherInfoItems.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Modified);
+                    var repo = new FeaturesRepository<OtherInfoItem>(db, CrudTypes.OtherInfo, feature.Id);
+                    repo.AddOrUpdate(existingFeature.OtherInfoItems, feature.OtherInfoItems);                    
                 }
 
-                #endregion
-
-                #region [-- StoryPoints --]
+                //StoryPoints
 
                 if (feature.StoryPoints != null)
                 {
-                    var addedStoryPoints = feature.StoryPoints.Except(existingFeature.StoryPoints, tchr => tchr.Id);
-                    addedStoryPoints.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Added);
-
-                    var modifiedStoryPoints = feature.StoryPoints.Except(addedStoryPoints, tchr => tchr.Id);
-                    modifiedStoryPoints.ToList().ForEach(stk => db.Entry(stk).State = EntityState.Modified);
+                    var repo = new FeaturesRepository<StoryPoint>(db, CrudTypes.StoryPoint, feature.Id);
+                    repo.AddOrUpdate(existingFeature.StoryPoints, feature.StoryPoints);                    
                 }
 
-                #endregion
 
                 #region unused
 
@@ -359,13 +322,13 @@ namespace webapi.Models
                         {
                             entry.Property(prop).IsModified = true;
                             ismodified = true;
-                            Debug.WriteLine("original:" + original, ", current:" + current);
-                            log.AppendFormat("<span class=\"text-muted\">{0} : {1} ({2})</span>", prop, current.ToString(),original.ToString()).AppendLine();
+                            //Debug.WriteLine("original:" + original, ", current:" + current);
+                            log.AppendFormat("<span class=\"text-muted\"><span class=\"text-primary\">{0}</span> : {1} {2}</span>", prop, current, (original != null && original.ToString().Length > 0 ? "(" + original + ")" : "")).AppendLine();
                         }
                     }                    
                 });
                 if(ismodified)
-                db.Logs.Add(new Log { Info = string.Format(" {0} Modified <br />{1}", this.crudType, log.ToString()), Active = true, Date = Helper.now, FeatureId = this.primaryId });
+                db.Logs.Add(new Log { Info = string.Format(" <label class=\"text-info\">{0} Modified </label><br />{1}", this.crudType, log.ToString()), Active = true, Date = Helper.now, FeatureId = this.primaryId });
             }
         }
     }

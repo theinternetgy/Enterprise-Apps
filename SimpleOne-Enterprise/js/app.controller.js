@@ -151,4 +151,11 @@
         $scope.Settings = localstoragefac.getitem();        
     }
     $scope.init();
+}).controller('HostController', function ($scope, $q, toaster, $window, localstoragefac) {
+    $scope.init = function () {
+        localstoragefac.init('settings');
+        $scope.Settings = localstoragefac.getitem();
+        console.log('Settings: ', $scope.Settings);
+    }
+    $scope.init();
 })

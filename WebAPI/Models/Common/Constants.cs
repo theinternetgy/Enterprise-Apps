@@ -15,6 +15,7 @@ namespace webapi.Models.Common
         Functions=4,
         UnitTestcases=5,
         RepositoryInfo=6,
-        Queries=7
+        OtherInfo=7,
+        StoryPoint=8
     }
 }
