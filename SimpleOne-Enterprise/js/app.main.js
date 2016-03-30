@@ -9,6 +9,7 @@ var app = angular.module('myapp', ['LocalStorageModule', 'ngSanitize', 'ngRoute'
         $rootScope.loadingView = false;
         $timeout(function () {
             if (window.initui) initui();
+            if (window._initui) _initui();
         }, 50);
     });
     
@@ -29,6 +30,12 @@ var app = angular.module('myapp', ['LocalStorageModule', 'ngSanitize', 'ngRoute'
     };
 });
 
+function _initui() {
+    //$('.table tr td .fa-edit').on('click', function (event) {
+    //    console.log('click');
+    //    $(this).addClass('highlight-row').siblings().removeClass('highlight-row');
+    //});
+}
 $(document).ready(function () {
     $('ul.nav li').click(function () {
         $(this).siblings('li').removeClass('active');

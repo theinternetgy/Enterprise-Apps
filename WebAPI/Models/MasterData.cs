@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using webapi.Models.Common;
 
 namespace webapi.Models
 {
@@ -35,6 +36,23 @@ namespace webapi.Models
             return results;
         }
 
-       
+        public void SaveUser(User user)
+        {
+            if (user.Id == 0)
+            {
+                db.Users.Add(user);
+            }
+            else
+            {
+                db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+            }
+
+            db.SaveChanges();
+        }
+
+        public IEnumerable GetUsers()
+        {
+            return db.Users;
+        }
     }
 }

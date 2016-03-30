@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Linq;
 using System;
 using webapi.Models.Settings;
+using webapi.Models.Common;
 
 namespace webapi.Models
 {
@@ -38,6 +39,7 @@ namespace webapi.Models
         public DbSet<Log> Logs { get; set; }
         public DbSet<StoryPoint> StoryPoints { get; set; }
         public DbSet<Settings.MasterItem> Masters { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 
     public static class DbSetExtensions

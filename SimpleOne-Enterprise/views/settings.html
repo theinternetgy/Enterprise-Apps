@@ -53,6 +53,21 @@
             <div class="animate-switch" ng-switch-when="project">
                 <settings-crud collection-name="Project"></settings-crud>
             </div>
+            <div class="animate-switch" ng-switch-when="module">
+                <settings-crud collection-name="Module"></settings-crud>
+            </div>
+            <div class="animate-switch" ng-switch-when="page">
+                <settings-crud collection-name="Page"></settings-crud>
+            </div>
+            <div class="animate-switch" ng-switch-when="worktype">
+                <settings-crud collection-name="WorkType"></settings-crud>
+            </div>
+            <div class="animate-switch" ng-switch-when="team">
+                <settings-crud collection-name="Team"></settings-crud>
+            </div>
+            <div class="animate-switch" ng-switch-when="users">
+                <dynamic-form name="Users" collection-name="Users/get" form-fields="UserForm"></dynamic-form>
+            </div>
         </div>
     </div>
 </div>

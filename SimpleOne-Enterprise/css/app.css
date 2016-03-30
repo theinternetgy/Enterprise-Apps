@@ -5203,3 +5203,5 @@ ul.nav .active{background-color:#f6f8f8 !important;}
   display: inherit;cursor:hand;cursor:pointer;position:absolute;top: 5px;right:0px;
 }
 .timeline.border{border-bottom:1px solid whitesmoke;}
+.highlight-row{background-color:#5bfb81 !important;color:white;}
+ 

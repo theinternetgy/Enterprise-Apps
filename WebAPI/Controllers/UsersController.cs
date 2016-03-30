@@ -1,38 +1,36 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using webapi.Models;
+using webapi.Models.Common;
 
 namespace webapi.Controllers
 {
-    public class StackholdersController : ApiController
+    public class UsersController : ApiController
     {
         // GET api/<controller>
-        public IEnumerable<BaseCrudClass> Get()
+        public IEnumerable Get()
         {
-            //List<BaseCrudClass> list = new List<BaseCrudClass>() {
-            //    new BaseCrudClass { Id=1,Name="user 1"},
-            //    new BaseCrudClass{ Id=2, Name="user 2"},
-            //    new BaseCrudClass{ Id=3, Name="user 3"}
-            //};
-
-            //return list;// new string[] { "file1", "file2" };
-            return null;
+            var master = new MasterData();
+            return master.GetUsers();
         }
 
         // GET api/<controller>/5
         public IEnumerable<File> Get(int id)
         {
-
             return null; ;
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public IEnumerable Post([FromBody]User value)
         {
+            var master = new MasterData();
+            master.SaveUser(value);
+            return master.GetUsers();
         }
 
         // PUT api/<controller>/5

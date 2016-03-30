@@ -144,18 +144,24 @@
         
     }
     $scope.init = function () {
-        $scope.menus = [{ Name: 'Application', Url: 'settings.application', Css: 'active' }, { Name: 'Project', Url: 'settings.project', Css: '' }, { Name: 'Module', Url: 'settings.module' }, { Name: 'Page', Url: 'settings.page' }];
-        $scope.title = 'Project';
+        $scope.menus = [{ Name: 'Application', Url: 'settings.application', Css: 'active' }, { Name: 'Project', Url: 'settings.project', Css: '' },
+            { Name: 'Module', Url: 'settings.module' }, { Name: 'Page', Url: 'settings.page' },
+            { Name: 'WorkType', Url: 'settings.worktype' }, { Name: 'Team', Url: 'settings.team' }, { Name: 'Users'}];
+        $scope.title = 'Users';
         $scope.selectedConfig = $scope.title.toLowerCase();
         localstoragefac.init('settings');        
-        $scope.Settings = localstoragefac.getitem();        
+        $scope.Settings = localstoragefac.getitem();
+        $scope.UserForm = {
+            Fields: [{ Name: 'Firstname', Type: 'text', Placeholder: '' }, { Name: 'Lastname', Type: 'text', Placeholder: '' }, { Name: 'Email', Type: 'text', Placeholder: '' }, { Name: 'ContactNo', Type: 'text', Placeholder: '' }, { Name: 'Active', Type: 'checkbox', Placeholder: '' }],
+            ListColumns: [{ name: 'Id', display: 'ID', type: 'hidden', css: 'hide' }, { name: 'Firstname', display: 'Firstname' }, { name: 'Lastname', display: 'Lastname', css: 'hidden-xs hidden-sm hidden-md' }, { name: 'Email', display: 'Email', css: 'hidden-xs hidden-sm hidden-md' }, { name: 'ContactNo', display: 'ContactNo' }]
+        };
     }
     $scope.init();
 }).controller('HostController', function ($scope, $q, toaster, $window, localstoragefac) {
     $scope.init = function () {
         localstoragefac.init('settings');
         $scope.Settings = localstoragefac.getitem();
-        console.log('Settings: ', $scope.Settings);
+        //console.log('Settings: ', $scope.Settings);
     }
     $scope.init();
 })

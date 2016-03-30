@@ -4,11 +4,11 @@
             <form name="crudfrm">
                 <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control" ng-model="Form.Text" required />
+                    <input type="text" class="form-control" ng-model="Form.Text" ng-required="true" />
                 </div>
                 <div class="form-group">
                     <label>Information</label>
-                    <textarea type="text" class="form-control" ng-model="Form.Value" rows="10"></textarea>
+                    <textarea type="text" class="form-control" ng-model="Form.Value" rows="5"></textarea>
                 </div>
                 <div class="form-group">
                     <div class="checkbox">
@@ -18,7 +18,7 @@
                             Active
                         </label>
                     </div>
-                </div>
+                </div>               
                 <button type="submit" class="btn btn-sm btn-primary" ng-click="actionSave()" ng-disabled="processing">
                     <div ng-hide="processing">
                         <span ng-hide="editmode">Submit</span>
@@ -40,6 +40,7 @@
                     <th>{{collectionName}}</th>
                     <th>Info</th>
                     <th>Active</th>
+                    <th>Edit</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,6 +48,10 @@
                     <td ng-bind="row.Text"></td>
                     <td ng-bind="row.Value" class="crud-tbl-col-text-wrap"></td>
                     <td ng-bind="row.Active"></td>
+                    <td><a><i class="fa fa-edit" ng-click="edit($index)" href></i></a></td>
+                </tr>
+                <tr>
+                    <td colspan="4" ng-if="!list || list.length==0"><center class="text-muted">No Data</center></td>
                 </tr>
             </tbody>
         </table>

@@ -160,6 +160,7 @@
                 $scope.props.lblsavebtn = 'Save';
                 $scope.props.selectedIndex = index;
                 $scope.props.editrecord = true;
+                $scope.Form=$scope.list[index];
             }
             $scope.cancel = function (index) {
                 $scope.props.selectedIndex = undefined;
@@ -208,6 +209,7 @@
                     setMessage(data.message);
                     $scope.actionList();
                     $scope.processing = false;
+                    $scope.clear();
                 });
             };
 
@@ -229,6 +231,90 @@
 
             $scope.init();
 
+        }
+    }
+}).directive('soGrid', function () {
+    var tpl = '<table class="table table-striped m-b-none" ng-hide="!list || list.length==0"><thead><tr><th ng-repeat="c in columns" ng-class="c.css">{{c.display}}</th></tr></thead><tbody><tr ng-repeat="row in list"><td ng-repeat="c in columns" ng-class="c.css">{{row[c.name]}}</td><td><a><i class="fa fa-edit" ng-click="edit($index)" href></i></a></td></tr></tbody></table>';
+    return {
+        restrict: 'E',
+        template: tpl,
+        scope: {
+            columns: '=',
+            list: '=',
+            formSource:'='
+        },
+        controller: function ($scope, $timeout, $rootScope) {
+            $scope.edit = function (i) {
+                console.log(i);
+                $scope.selectedIndex = i;
+                $scope.formSource = $scope.list[i];
+            }
+        }
+    }
+}).directive('dynamicForm', function (crudService) {
+    return {
+        restrict: 'E',
+        templateUrl: 'views/dynamic/form.html',
+        scope: {
+            name:'@',
+            primaryid: '=',
+            collectionName: '@',
+            formFields: '='
+        },
+        controller: function ($scope, $timeout, $rootScope) {
+            var baseController = $scope.collectionName;
+            $scope.clear = function () {
+                $scope.Form = { Active: true };
+            }
+            $scope.init = function () {
+                $scope.props = {};
+                $scope.allSet = crudService.ok();
+                $scope.clear();
+                $scope.actionList();
+            }
+            var setMessage = function (message,type) {
+                $scope.message = { content: message, css: type };
+                $timeout(function () {
+                    $scope.message = null;
+                }, 1000);
+            };
+
+            $scope.edit = function (index) {
+                $scope.props.selectedIndex = index;
+                $scope.props.editrecord = true;
+                $scope.Form = $scope.list[index];
+            }
+            $scope.cancel = function (index) {
+                $scope.props.selectedIndex = undefined;
+                $scope.props.editrecord = false;
+                $scope.props.createnew = false;
+            }
+
+            $scope.actionList = function () {
+                $scope.loadingView = true;
+                if (!$scope.allSet) return false;
+                var filter = '';//'?filter=';
+                crudService.getItems(baseController, undefined, filter).then(function (list) {
+                    $scope.list = list;
+                    $scope.loadingView = false;
+                }, function (d) {
+                    $scope.somethingwrong = true;
+                    $scope.loadingView = false;
+                });
+            };
+
+            $scope.actionSave = function () {
+                if (!$scope.allSet) return false;
+                $scope.processing = true;
+                var formData = $scope.Form;
+                crudService.saveItem(baseController, formData).then(function (data) {
+                    setMessage(data.message);
+                    $scope.actionList();
+                    $scope.processing = false;
+                    $scope.clear();
+                });
+            };
+            $scope.init();
         }
     }
 }).directive('timeline', function (crudService, utilsFac) {
@@ -258,7 +344,7 @@
                 //});
             }
             $scope.edit = function (index) {
-
+                $scope.selectedIndex = index;
             }
             $scope.cancel = function (index) {
 
@@ -268,10 +354,10 @@
                 if (!$scope.list) $scope.list = [];
                 var log = { FeatureId: $scope.primaryid, Date: moment(), Css: 'b-danger', Info: $scope.Feature.Log.Info, Active: true, UId: $scope.list.length + 1 };
                 if ($scope.pushItem) {
-                    console.log('push item :', log);
+                    //console.log('push item :', log);
                     $scope.list.push(log);
                 } else {
-                    console.log('slice item :', log);
+                    //console.log('slice item :', log);
                     $scope.list.splice(0, 0, log);
                 }
                 $scope.Feature.Log = {};

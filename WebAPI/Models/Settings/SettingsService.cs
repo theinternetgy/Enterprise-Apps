@@ -18,7 +18,14 @@ namespace webapi.Models.Settings
         {
             bool result = false;
 
-            db.Masters.Add(masterItem);
+            if (masterItem.Id == 0)
+            {
+                db.Masters.Add(masterItem);
+            }
+            else
+            {
+                db.Entry(masterItem).State = System.Data.Entity.EntityState.Modified;
+            }
             db.SaveChanges();
 
             return result;
