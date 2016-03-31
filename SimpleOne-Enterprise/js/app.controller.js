@@ -117,7 +117,7 @@
 .controller('TypeaheadDemoCtrl', function ($scope) { })
 .controller('FlotChartDemoCtrl', function ($scope) { })
 .controller('MainCtrl', function ($scope) { })
-.controller('settingsCtrl', function ($scope, $q, toaster, $window, localstoragefac) {
+.controller('settingsCtrl', function ($scope, $q, toaster, $window, localstoragefac, crudService,$timeout) {
     var mode = 'local';    
     $scope.Settings = {};
     $scope.save = function () {
@@ -137,17 +137,45 @@
         if (flag == 'p' && selected == $scope.title) css = 'active';
         return css;
     }
+    $socpe.clearteamMapping = function () {
+        $scope.TeamMapping = {};
+    }
     $scope.nav = function (selected) {
         //console.log(selected.Name);
         $scope.title = selected.Name;   
         $scope.selectedConfig = selected.Name.toLowerCase();
-        
+        if ($scope.selectedConfig == 'teammapping') {
+            crudService.getItems('masters/?filter=teammapping').then(function (d) {
+                $socpe.clearteamMapping();
+                $scope.Masters = d;
+                $scope.loading = false;
+                $scope.getTeamMapping();
+                if (window.initChosen) $timeout(initChosen, 10);
+            });
+        }
+    }
+    $scope.saveTeamMapping = function () {
+        $scope.processing = true;
+        crudService.saveItem('teams', $scope.TeamMapping).then(function (d) {
+            $scope.processing = false;
+            $socpe.clearteamMapping();
+            $scope.getTeamMapping();
+        });
+    }
+    $scope.getTeamMapping = function () {
+        $scope.loading = true;
+        crudService.getItems('teams').then(function (d) {
+            $scope.loading = false;
+            $scope.teammappinglist = d;
+            //$scope.TeamMapping.Teams = d.Teams;
+            //$scope.TeamMapping.Users = d.Users;
+        });
     }
     $scope.init = function () {
         $scope.menus = [{ Name: 'Application', Url: 'settings.application', Css: 'active' }, { Name: 'Project', Url: 'settings.project', Css: '' },
             { Name: 'Module', Url: 'settings.module' }, { Name: 'Page', Url: 'settings.page' },
-            { Name: 'WorkType', Url: 'settings.worktype' }, { Name: 'Team', Url: 'settings.team' }, { Name: 'Users'}];
-        $scope.title = 'Users';
+            { Name: 'WorkType', Url: 'settings.worktype' }, { Name: 'Team', Url: 'settings.team' }, { Name: 'Users' }, { Name: 'TeamMapping' }];
+        $scope.title = 'TeamMapping';
         $scope.selectedConfig = $scope.title.toLowerCase();
         localstoragefac.init('settings');        
         $scope.Settings = localstoragefac.getitem();

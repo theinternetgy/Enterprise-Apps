@@ -1,7 +1,8 @@
 +function ($) {
 
   $(function(){
-initui();
+      initui();
+      
   });
 }(jQuery);
 function initui(){
@@ -17,4 +18,7 @@ function initui(){
           self[self.attr('ui-jq')].apply(self, options);
         });
       });
+}
+var initChosen = function () {
+    $('.chosen-select').chosen();
 }

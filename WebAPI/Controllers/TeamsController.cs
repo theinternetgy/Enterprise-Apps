@@ -1,18 +1,22 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using webapi.Models;
 
 namespace webapi.Controllers
 {
-    public class UnitTestScenariosController : ApiController
+    public class TeamsController : ApiController
     {
         // GET api/<controller>
-        public IEnumerable<string> Get()
+        public IEnumerable Get()
         {
-            return new string[] { "Unit test 1", "Unit test 2" };
+            var master = new MasterData();
+            var data = master.GetUserTeamMappingList();
+            return data;
         }
 
         // GET api/<controller>/5
@@ -22,8 +26,10 @@ namespace webapi.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public void Post([FromBody]UserTeamMapping value)
         {
+            var master = new MasterData();
+            master.SaveUserTeamMapping(value);
         }
 
         // PUT api/<controller>/5

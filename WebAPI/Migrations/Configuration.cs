@@ -35,6 +35,19 @@ namespace webapi.Migrations
               new MasterItem { MasterType= "Status", Text = "Completed", Active = true }
             );
 
+            context.Database.ExecuteSqlCommand(@"
+                                         if not exists(select* from sysobjects where name= 'UserTeamMapping' and xtype = 'U') begin
+                                        CREATE TABLE [dbo].[UserTeamMapping](
+	                                        [Id] [int] IDENTITY(1,1) NOT NULL,
+	                                        [UserId] [int],
+	                                        [TeamId][int],
+                                         CONSTRAINT [PK_dbo.UserTeamMapping] PRIMARY KEY CLUSTERED 
+                                        (
+	                                        [Id] ASC
+                                        )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+                                        ) ON [PRIMARY] 
+                                        End
+                                           ");
 
             //context.Database.ExecuteSqlCommand(@"               
             //    SET IDENTITY_INSERT [dbo].[masteritems] ON 

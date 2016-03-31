@@ -16,6 +16,8 @@ namespace webapi.Models.Common
         UnitTestcases=5,
         RepositoryInfo=6,
         OtherInfo=7,
-        StoryPoint=8
+        StoryPoint=8,
+        Team=9,
+        Users=10
     }
 }

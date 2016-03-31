@@ -113,4 +113,17 @@ namespace webapi.Models
     {
         public string Date { get; set; }
     }
+
+    public class UserTeamMapping
+    {
+        public List<int> Users { get; set; }
+        public List<int> Teams { get; set; }
+    }
+
+    public class UserTeamMappingString
+    {
+        public string User { get; set; }
+        public string Team { get; set; }
+    }
+     
 }
