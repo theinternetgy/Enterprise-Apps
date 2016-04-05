@@ -8,3 +8,5 @@ A "Low Level Specification Document" for your software development
 
 ## Creating new feature
 ![](https://github.com/dhamofficial/Enterprise-Apps/blob/master/Files/Images/create-new.png)
+
+#Note: Source code is moved to TFS for Continuous Integration Build System. 
